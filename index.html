@@ -1,0 +1,2431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIOLOGÍA - Fisiología Sanguínea: Plasma, Elementos Formes, Hemopoyesis y Hemostasia (UCCuyo)</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- KaTeX for ultra-fast LaTeX formulas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" 
+            onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+
+    <!-- FontAwesome & Phosphor Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+
+    <!-- Google Fonts: Outfit & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        accent: {
+                            DEFAULT: '#436600',
+                            hover: '#324d00',
+                            light: '#f1f6eb'
+                        },
+                        erythro: { 50: '#fef2f2', 100: '#fee2e2', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c', 900: '#7f1d1d' },
+                        plasma: { 50: '#fffbeb', 100: '#fef3c7', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
+                        leuko: { 50: '#f5f3ff', 100: '#ede9fe', 500: '#8b5cf6', 600: '#7c3aed', 800: '#5b21b6' },
+                        platelet: { 500: '#06b6d4', 600: '#0891b2' },
+                        uccuyo: { primary: '#436600', secondary: '#0284c7', accent: '#991b1b' }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f7f9f6;
+        }
+
+        /* Paleta Institucional Verde Oliva UCCuyo */
+        .text-accent { color: #436600; }
+        .bg-accent { background-color: #436600; }
+        .bg-accent-hover:hover { background-color: #324d00; }
+        .bg-accent-light { background-color: #f1f6eb; }
+        .border-accent { border-color: #436600; }
+
+        .text-primary { color: #436600; }
+        .bg-primary { background-color: #436600; }
+        .bg-primary-dark { background-color: #324d00; }
+        .border-primary { border-color: #436600; }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        .glow-red { box-shadow: 0 0 25px rgba(220, 38, 38, 0.2); }
+        .glow-amber { box-shadow: 0 0 25px rgba(245, 158, 11, 0.2); }
+        .glow-purple { box-shadow: 0 0 25px rgba(124, 58, 237, 0.2); }
+
+        
+        canvas {
+            touch-action: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between text-slate-800">
+
+    <!-- Cabecera Institucional UCCuyo -->
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    B
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800 tracking-wide uppercase">BIOLOGÍA</h1>
+                    <p class="text-xs text-gray-500 font-semibold">PreMédico (Facultad de Cs. Médicas - UCCuyo)</p>
+                </div>
+            </div>
+            <!-- Botón Guía de Uso -->
+            <button onclick="openTutorial()" class="flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg shadow-sm hover:opacity-90 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Guía de Uso
+            </button>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal con Menú Lateral y Módulos -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 flex flex-col lg:flex-row gap-6">
+
+        <!-- Menú de Navegación Lateral -->
+        <nav class="w-full lg:w-72 flex flex-row lg:flex-col gap-2 bg-white p-3.5 rounded-2xl shadow-sm border border-gray-200 overflow-x-auto lg:overflow-x-visible whitespace-nowrap lg:whitespace-normal sticky top-20 h-fit shrink-0">
+            <button onclick="switchTab('mod1')" id="nav-mod1" class="nav-btn bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-3.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2.5 shadow-sm">
+                <i class="fa-solid fa-vial-virus text-sm w-4 text-center"></i>
+                <span>1. Tejido & Hematocrito</span>
+            </button>
+            <button onclick="switchTab('mod2')" id="nav-mod2" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-3.5 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-circle-dot text-sm w-4 text-center"></i>
+                <span>2. Eritrocito & Eje EPO</span>
+            </button>
+            <button onclick="switchTab('mod3')" id="nav-mod3" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-3.5 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-microscope text-sm w-4 text-center"></i>
+                <span>3. Frotis & Leucocitos</span>
+            </button>
+            <button onclick="switchTab('mod4')" id="nav-mod4" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-3.5 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-sitemap text-sm w-4 text-center"></i>
+                <span>4. Hemopoyesis Medular</span>
+            </button>
+            <button onclick="switchTab('mod5')" id="nav-mod5" class="nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-3.5 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-shield-halved text-sm w-4 text-center"></i>
+                <span>5. Fisiología de Hemostasia</span>
+            </button>
+        </nav>
+
+        <!-- Contenedor Dinámico de Módulos -->
+        <div class="flex-1 w-full space-y-6 min-w-0">
+<section id="module-mod1" class="module-section space-y-6 animate-fadeIn">
+      <!-- Banner introductorio -->
+      <div class="bg-gradient-to-r from-slate-900 via-rose-950 to-slate-900 rounded-2xl p-6 text-white border border-red-900/40 shadow-xl relative overflow-hidden">
+        <div class="relative z-10 max-w-3xl">
+          <span class="inline-block px-3 py-1 rounded-full bg-erythro-600/30 text-erythro-300 text-xs font-bold uppercase tracking-wider mb-2 border border-erythro-500/30">Módulo 1 • Histología Básica</span>
+          <h2 class="text-2xl md:text-3xl font-extrabold text-white">La Sangre: Tejido Conectivo Especializado Líquido</h2>
+          <p class="mt-2 text-slate-300 text-sm md:text-base leading-relaxed">
+            A diferencia de los tejidos conectivos convencionales (donde la matriz extracelular está conformada por fibras colágenas fijas y sustancia fundamental amorfa semisólida), la sangre posee una <strong>abundante matriz extracelular enteramente líquida: el plasma sanguíneo ($\approx 55\%$)</strong>, dentro de la cual se encuentran en suspensión los <strong>elementos formes o corpusculares ($\approx 45\%$)</strong>.
+          </p>
+        </div>
+        <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+          <i class="fa-solid fa-vial w-72 h-72 text-red-400"></i>
+        </div>
+      </div>
+
+      <!-- Simulador de Centrifugación y Tubo de Wintrobe -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Canvas & Controls del Tubo de Wintrobe -->
+        <div class="lg:col-span-6 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+              <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                <i class="fa-solid fa-sliders w-5 h-5 text-erythro-600"></i>
+                Simulador de Microhematocrito
+              </h3>
+              <span id="centrifugeStatusBadge" class="text-xs px-2.5 py-1 rounded-full font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">Tubo Fraccionado (3.000 rpm)</span>
+            </div>
+
+            <!-- Interactivo Canvas con tubo y carteles distanciados -->
+            <div class="my-4 flex flex-row items-center justify-center gap-4 sm:gap-5 bg-slate-900/95 rounded-2xl p-4 sm:p-5 shadow-inner border border-slate-800 overflow-hidden">
+              <!-- Tubo de Wintrobe centrado en su columna -->
+              <div class="flex justify-center items-center shrink-0 w-28 sm:w-32">
+                <canvas id="wintrobeCanvas" width="120" height="320" class="rounded-lg shadow-md"></canvas>
+              </div>
+              
+              <!-- Carteles explicativos dentro del contenedor oscuro sin desbordar -->
+              <div class="flex-1 min-w-0 flex flex-col justify-center space-y-3 text-xs font-medium text-white">
+                <div class="bg-amber-500/15 p-2.5 sm:p-3 rounded-xl border border-amber-400/30 text-amber-200 shadow-sm backdrop-blur-sm transition-all hover:bg-amber-500/20">
+                  <div class="flex items-center justify-between gap-1.5 font-bold text-xs sm:text-sm text-amber-300">
+                    <span class="truncate">Plasma Sanguíneo</span>
+                    <span id="labelPlasma" class="font-mono text-sm sm:text-base font-extrabold text-amber-400 shrink-0">55%</span>
+                  </div>
+                  <p class="text-[10px] sm:text-[11px] text-amber-200/90 mt-1 leading-snug">Matriz líquida: agua (91.5%), proteínas, electrolitos y metabolitos.</p>
+                </div>
+
+                <div class="bg-purple-500/15 p-2.5 sm:p-3 rounded-xl border border-purple-400/30 text-purple-200 shadow-sm backdrop-blur-sm transition-all hover:bg-purple-500/20">
+                  <div class="flex items-center justify-between gap-1.5 font-bold text-xs sm:text-sm text-purple-300">
+                    <span class="truncate">Buffy Coat</span>
+                    <span class="font-mono text-xs sm:text-sm font-extrabold text-purple-300 shrink-0">&lt; 1%</span>
+                  </div>
+                  <p class="text-[10px] sm:text-[11px] text-purple-200/90 mt-1 leading-snug">Interfase leucoplaquetaria: glóbulos blancos y plaquetas.</p>
+                </div>
+
+                <div class="bg-red-500/15 p-2.5 sm:p-3 rounded-xl border border-red-400/30 text-red-200 shadow-sm backdrop-blur-sm transition-all hover:bg-red-500/20">
+                  <div class="flex items-center justify-between gap-1.5 font-bold text-xs sm:text-sm text-red-300">
+                    <span class="truncate">Masa Eritrocitaria (Hto)</span>
+                    <span id="labelHto" class="font-mono text-sm sm:text-base font-extrabold text-red-400 shrink-0">45%</span>
+                  </div>
+                  <p class="text-[10px] sm:text-[11px] text-red-200/90 mt-1 leading-snug">Paquete sedimentado: eritrocitos transportadores de $\text{O}_2$.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sliders y Casos Clínicos Predefinidos -->
+            <div class="space-y-3">
+              <div class="flex justify-between items-center text-sm font-semibold">
+                <label for="htoSlider" class="text-slate-700">Ajuste de Hematocrito ($\text{Hto}$):</label>
+                <span id="sliderValue" class="text-erythro-600 font-bold font-mono text-base">45 %</span>
+              </div>
+              <input type="range" id="htoSlider" min="15" max="75" value="45" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-erythro-600">
+            </div>
+
+            <!-- Botones de Escenarios Clínicos Frecuentes en el Ingreso -->
+            <div class="mt-4 pt-4 border-t border-slate-200">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">Casos de Evaluación Fisiológica:</span>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <button onclick="setClinicalCase('normal')" class="px-2.5 py-2 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold hover:bg-emerald-100 transition">
+                  Fisiológico ($45\%$)
+                </button>
+                <button onclick="setClinicalCase('anemia')" class="px-2.5 py-2 rounded-lg bg-rose-50 text-rose-800 border border-rose-200 font-semibold hover:bg-rose-100 transition">
+                  Anemia Severa ($24\%$)
+                </button>
+                <button onclick="setClinicalCase('policitemia')" class="px-2.5 py-2 rounded-lg bg-red-50 text-red-900 border border-red-300 font-semibold hover:bg-red-100 transition">
+                  Poliglobulia ($65\%$)
+                </button>
+                <button onclick="setClinicalCase('deshidratacion')" class="px-2.5 py-2 rounded-lg bg-amber-50 text-amber-900 border border-amber-300 font-semibold hover:bg-amber-100 transition">
+                  Deshidratación ($56\%$)
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Fisiología del Plasma vs Elementos Formes -->
+        <div class="lg:col-span-6 space-y-4">
+          <!-- Card Plasma -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 border-l-4 border-amber-400 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h4 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-amber-400 shrink-0"></span>
+                  Fracción Superior: Plasma Sanguíneo (~55%)
+                </h4>
+                <p class="text-xs text-slate-500 mt-0.5">Matriz líquida acelular transportadora de nutrientes, desechos y calor corporal.</p>
+              </div>
+              <span class="px-2.5 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded-lg shrink-0 self-start sm:self-auto">55% del volumen total</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4 text-xs">
+              <div class="bg-amber-50/60 p-3 rounded-xl border border-amber-200/60">
+                <div class="font-bold text-amber-900 text-sm">Agua (91.5%)</div>
+                <p class="text-slate-600 mt-1">Solvente biológico universal. Mantiene el volumen plasmático y amortigua la temperatura sistémica.</p>
+              </div>
+              <div class="bg-amber-50/60 p-3 rounded-xl border border-amber-200/60">
+                <div class="font-bold text-amber-900 text-sm">Proteínas Plasmáticas (7.0%)</div>
+                <ul class="text-slate-600 mt-1 space-y-0.5 list-disc list-inside">
+                  <li><strong>Albúmina (54%):</strong> Presión coloidosmótica oncótica.</li>
+                  <li><strong>Globulinas (38%):</strong> Inmunoglobulinas y transportadores.</li>
+                  <li><strong>Fibrinógeno (7%):</strong> Coagulación.</li>
+                </ul>
+              </div>
+              <div class="bg-amber-50/60 p-3 rounded-xl border border-amber-200/60">
+                <div class="font-bold text-amber-900 text-sm">Solutos Menores (1.5%)</div>
+                <p class="text-slate-600 mt-1">Electrolitos ($\text{Na}^+, \text{K}^+, \text{Ca}^{2+}, \text{Cl}^-, \text{HCO}_3^-$), glucosa, urea, creatinina, $\text{O}_2$ y $\text{CO}_2$.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Buffy Coat -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 border-l-4 border-purple-500 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h4 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-purple-500 shrink-0"></span>
+                  Capa Intermedia: Capa Leucoplaquetaria o "Buffy Coat" (&lt; 1%)
+                </h4>
+                <p class="text-xs text-slate-500 mt-0.5">Fina película de color blanco grisáceo situada en la interfase líquido-sedimento.</p>
+              </div>
+              <span class="px-2.5 py-1 bg-purple-100 text-purple-800 text-xs font-bold rounded-lg shrink-0 self-start sm:self-auto">&lt; 1% del volumen</span>
+            </div>
+            <p class="text-xs text-slate-700 mt-2 leading-relaxed">
+              Está constituida por la totalidad de los <strong>leucocitos</strong> ($5.000\text{--}10.000/\mu\text{L}$) y las <strong>plaquetas</strong> ($150.000\text{--}400.000/\mu\text{L}$). Pese a su volumen porcentual mínimo, alberga el potencial inmunitario y hemostático primario de la circulación.
+            </p>
+          </div>
+
+          <!-- Card Eritrocitos -->
+          <div class="bg-white border border-slate-200 rounded-2xl p-5 border-l-4 border-erythro-600 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h4 class="font-bold text-slate-900 text-base sm:text-lg flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-erythro-600 shrink-0"></span>
+                  Fracción Inferior: Masa Eritrocitaria / Hematocrito (~45%)
+                </h4>
+                <p class="text-xs text-slate-500 mt-0.5">Fracción volumétrica ocupada exclusivamente por los glóbulos rojos empacados.</p>
+              </div>
+              <span class="px-2.5 py-1 bg-red-100 text-red-800 text-xs font-bold rounded-lg shrink-0 self-start sm:self-auto">Hto ~45%</span>
+            </div>
+            <p class="text-xs text-slate-700 mt-2 leading-relaxed">
+              El hematocrito normal promedio es de $42\pm 5\%$ en mujeres adultas y $47\pm 5\%$ en hombres adultos. La viscosidad global de la sangre depende primordialmente de esta fracción: un aumento desmedido (policitemia) eleva exponencialmente la resistencia periférica vascular.
+            </p>
+            <div id="clinicalExplanation" class="mt-3 p-3 bg-slate-100 rounded-xl text-xs text-slate-800 font-medium">
+              Estado actual: <span class="font-bold text-emerald-700">Fisiológico normal.</span> La relación plasma/eritrocitos permite una óptima perfusión tisular sin sobrecarga miocárdica.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- MÓDULO 2: ERITROCITOS Y REGULACIÓN DE LA ERITROPOYESIS -->
+    <!-- ========================================================================= -->
+    <section id="module-mod2" class="module-section hidden space-y-6 animate-fadeIn">
+      <div class="bg-gradient-to-r from-slate-900 via-rose-950 to-slate-900 rounded-2xl p-6 text-white border border-red-800/40 shadow-xl">
+        <span class="inline-block px-3 py-1 rounded-full bg-red-500/20 text-red-300 text-xs font-bold uppercase tracking-wider mb-2 border border-red-400/30">Módulo 2 • Citología y Control Homeostático</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white">Eritrocitos y el Bucle Renal-Medular de Eritropoyetina (EPO)</h2>
+        <p class="mt-2 text-slate-300 text-sm max-w-3xl leading-relaxed">
+          Los eritrocitos son células altamente diferenciadas y especializadas en el transporte de $\text{O}_2$ y $\text{CO}_2$. Analice su adaptación citoarquitectónica y la cascada neurohumoral que asegura una masa eritrocitaria constante ante variaciones en la tensión tisular de oxígeno.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Morfología y Relación Estructura-Función -->
+        <div class="lg:col-span-6 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
+          <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-compact-disc w-5 h-5 text-erythro-600"></i>
+              Arquitectura del Disco Bicóncavo
+            </h3>
+            <span class="text-xs bg-red-50 text-red-700 font-bold px-2.5 py-1 rounded-md border border-red-200">Vida media $\approx 120\text{ días}$</span>
+          </div>
+
+          <!-- Canvas interactivo 3D del Eritrocito -->
+          <div class="bg-slate-950 rounded-xl p-4 flex flex-col items-center justify-center relative shadow-inner">
+            <canvas id="rbcCanvas" width="380" height="220" class="cursor-grab active:cursor-grabbing"></canvas>
+            <span class="text-[11px] text-slate-400 mt-2 flex items-center gap-1">
+              <i class="fa-solid fa-up-down-left-right w-3.5 h-3.5"></i> Arrastre el mouse para rotar el eritrocito en 3D
+            </span>
+          </div>
+
+          <!-- Características Biométricas -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-red-50/70 rounded-xl border border-red-100">
+              <span class="text-slate-500 block">Diámetro Mayor</span>
+              <strong class="text-base text-red-950">$7.5\text{--}8.0\,\mu\text{m}$</strong>
+              <span class="text-[10px] text-slate-500 block mt-0.5">Grosor borde: $2.0\,\mu\text{m}$</span>
+            </div>
+            <div class="p-3 bg-red-50/70 rounded-xl border border-red-100">
+              <span class="text-slate-500 block">Recuento Femenino</span>
+              <strong class="text-base text-red-950">$4.8\times 10^6/\mu\text{L}$</strong>
+              <span class="text-[10px] text-slate-500 block mt-0.5">($\approx 4.0\text{--}5.2\times 10^6$)</span>
+            </div>
+            <div class="p-3 bg-red-50/70 rounded-xl border border-red-100">
+              <span class="text-slate-500 block">Recuento Masculino</span>
+              <strong class="text-base text-red-950">$5.4\times 10^6/\mu\text{L}$</strong>
+              <span class="text-[10px] text-slate-500 block mt-0.5">($\approx 4.5\text{--}5.9\times 10^6$)</span>
+            </div>
+          </div>
+
+          <!-- Ventajas Histológicas Fundamentales -->
+          <div class="space-y-2 text-xs text-slate-700">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <strong class="text-slate-900 block font-semibold mb-1">1. Máxima relación Superficie / Volumen:</strong>
+              La forma de disco bicóncavo ofrece un $30\%$ más de superficie de membrana plasmática en comparación con una esfera del mismo volumen celular, facilitando una difusión alveolar y tisular ultrarrápida de $\text{O}_2$ y $\text{CO}_2$.
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <strong class="text-slate-900 block font-semibold mb-1">2. Condición Anucleada y sin Organelas:</strong>
+              La extrusión del núcleo y mitocondrias durante la maduración permite empaquetar unas $280\times 10^6\text{ moléculas de Hemoglobina (Hb)}$ por eritrocito, y previene que la propia célula consuma el $\text{O}_2$ que transporta (generan $\text{ATP}$ exclusivamente por glucólisis anaerobia).
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulador del Bucle Renal-Medular de Retroalimentación -->
+        <div class="lg:col-span-6 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-5">
+          <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-rotate w-5 h-5 text-uccuyo-secondary"></i>
+              Bucle de Retroalimentación Negativa (Eje Renal-Medular)
+            </h3>
+            <span id="loopStatusBadge" class="text-xs px-2.5 py-1 rounded-full font-bold bg-blue-100 text-blue-800">Normoxia</span>
+          </div>
+
+          <!-- Diagrama interactivo dinámico -->
+          <div class="relative bg-slate-900 rounded-xl p-5 text-white shadow-inner overflow-hidden">
+            <!-- Circuito visual -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 relative z-10 text-xs text-center">
+              <!-- Sensor Renal -->
+              <div id="boxRenal" class="bg-slate-800/90 border border-slate-700 p-3 rounded-xl transition duration-500 flex flex-col items-center">
+                <i class="fa-solid fa-heart-pulse w-6 h-6 text-sky-400 mb-1"></i>
+                <span class="font-bold text-sky-300">Células Peritubulares Renales</span>
+                <span class="text-[10px] text-slate-400 mt-1">Sensor de $\text{pO}_2$ capilar</span>
+                <div class="mt-2 text-[11px] font-mono text-amber-300" id="epoEmission">EPO: Basal</div>
+              </div>
+
+              <!-- Conector hormonal -->
+              <div class="flex flex-col items-center justify-center py-2 md:py-0">
+                <i class="fa-solid fa-arrow-right w-6 h-6 text-amber-400 hidden md:block animate-pulse"></i>
+                <i class="fa-solid fa-arrow-down w-6 h-6 text-amber-400 md:hidden animate-pulse"></i>
+                <span class="text-[10px] font-bold text-amber-300 mt-1 uppercase">Secreción de EPO</span>
+              </div>
+
+              <!-- Efector Medular -->
+              <div id="boxMedula" class="bg-slate-800/90 border border-slate-700 p-3 rounded-xl transition duration-500 flex flex-col items-center">
+                <i class="fa-solid fa-dna w-6 h-6 text-rose-400 mb-1"></i>
+                <span class="font-bold text-rose-300">Médula Ósea Roja</span>
+                <span class="text-[10px] text-slate-400 mt-1">Órgano blanco (Progenitores CFU-E)</span>
+                <div class="mt-2 text-[11px] font-mono text-emerald-300" id="reticulocyteRate">Reticulocitos: $1.0\%$</div>
+              </div>
+            </div>
+
+            <!-- Flecha de retorno sistémico -->
+            <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-300">
+              <span class="flex items-center gap-1.5">
+                <i class="fa-solid fa-shield-check w-4 h-4 text-emerald-400"></i>
+                Aporte tisular de $\text{O}_2$:
+              </span>
+              <span id="o2DeliveryValue" class="font-bold font-mono text-emerald-400">Adecuado (Normoxia)</span>
+            </div>
+          </div>
+
+          <!-- Controles de Simulación de Hipoxia -->
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between items-center text-sm font-semibold mb-1">
+                <span class="text-slate-700">Tensión parcial de $\text{O}_2$ arterial ($\text{pO}_2$ / Altitud):</span>
+                <span id="po2Display" class="font-mono font-bold text-sky-700">95 mmHg (Nivel del mar)</span>
+              </div>
+              <input type="range" id="po2Slider" min="40" max="100" value="95" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-sky-600">
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 text-xs">
+              <button onclick="setHypoxiaScenario(95)" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-800 transition">
+                San Juan ($650\text{ m}$)
+              </button>
+              <button onclick="setHypoxiaScenario(65)" class="p-2 rounded-lg bg-sky-100 hover:bg-sky-200 font-semibold text-sky-900 transition">
+                Alta Montaña ($3.500\text{ m}$)
+              </button>
+              <button onclick="setHypoxiaScenario(45)" class="p-2 rounded-lg bg-rose-100 hover:bg-rose-200 font-semibold text-rose-900 transition">
+                Hipoxia Crítica ($&lt;50\text{ mmHg}$)
+              </button>
+            </div>
+
+            <div id="loopDescription" class="p-3 bg-slate-100 rounded-xl text-xs text-slate-700 leading-relaxed border border-slate-200">
+              La $\text{pO}_2$ peritubular se encuentra dentro de límites fisiológicos normales. La producción de eritropoyetina ($\text{EPO}$) permanece en niveles basales, reponiendo de forma exacta la tasa de eritrocateresis senescente ($\approx 1\%\text{ diario}$).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- MÓDULO 3: LEUCOCITOS Y FÓRMULA LEUCOCITARIA -->
+    <!-- ========================================================================= -->
+    <section id="module-mod3" class="module-section hidden space-y-6 animate-fadeIn">
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-6 text-white border border-purple-800/40 shadow-xl">
+        <span class="inline-block px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase tracking-wider mb-2 border border-purple-400/30">Módulo 3 • Hematología Clínica</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white">Leucocitos: Microscopía y Fórmula Leucocitaria Relativa</h2>
+        <p class="mt-2 text-slate-300 text-sm max-w-3xl leading-relaxed">
+          Los leucocitos ($5.000\text{--}10.000/\mu\text{L}$) constituyen las únicas células completas y nucleadas de la circulación. Utilice el microscopio virtual con tinción de Giemsa para clasificar granulocitos y agranulocitos y correlacionar desvíos con patologías clínicas.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Microscopio Virtual Interactivo -->
+        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-microscope w-5 h-5 text-leuko-600"></i>
+              Frotis Sanguíneo Teñido (Tinción May-Grünwald Giemsa)
+            </h3>
+            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2 py-1 rounded">Obj: 100x Inmersión</span>
+          </div>
+
+          <!-- Visor del Microscopio -->
+          <div class="relative bg-slate-950 rounded-2xl p-3 flex flex-col items-center justify-center overflow-hidden shadow-2xl">
+            <!-- Retículo circular del microscopio -->
+            <div class="relative rounded-full overflow-hidden border-4 border-slate-700 shadow-inner w-[300px] h-[300px] sm:w-[340px] sm:h-[340px] bg-[#fbf5f7]">
+              <canvas id="microscopeCanvas" width="340" height="340" class="cursor-crosshair"></canvas>
+            </div>
+            
+            <div class="mt-3 flex items-center justify-between w-full px-2 text-xs text-slate-400">
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-arrow-pointer w-3.5 h-3.5"></i> Haga clic sobre una célula para enfocar y diagnosticar</span>
+              <button onclick="generateRandomSmear()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-xs flex items-center gap-1 transition">
+                <i class="fa-solid fa-rotate w-3 h-3"></i> Nuevo Campo
+              </button>
+            </div>
+          </div>
+
+          <!-- Tarjeta de Diagnóstico Citológico de la Célula Seleccionada -->
+          <div id="cellInspectionCard" class="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-xl p-4 text-xs transition-all">
+            <div class="flex items-center justify-between font-bold text-purple-950 text-sm mb-1">
+              <span id="inspectCellName">Neutrófilo Segmentado</span>
+              <span id="inspectCellType" class="text-xs px-2 py-0.5 rounded bg-purple-200 text-purple-800">Granulocito Polimorfonuclear</span>
+            </div>
+            <div class="text-slate-600 leading-relaxed space-y-1">
+              <p><strong>Morfología:</strong> <span id="inspectCellMorph">Diámetro $10\text{--}12\,\mu\text{m}$. Núcleo segmentado con $3\text{--}5$ lóbulos unidos por hebras de cromatina. Gránulos específicos neutros pálidos.</span></p>
+              <p><strong>Función Fisiológica:</strong> <span id="inspectCellFunction">Primera línea de defensa frente a infecciones bacterianas piógenas; efectúa diapédesis activa hacia el tejido intersticial y fagocitosis con estallido respiratorio.</span></p>
+              <p><strong>Valor Relativo Normal:</strong> <span id="inspectCellPercentage" class="font-semibold text-purple-900">$60\text{--}70\%$ del total de leucocitos</span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel de la Fórmula Leucocitaria Relativa y Casos Clínicos -->
+        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-5">
+          <div class="border-b border-slate-200 pb-3">
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-clipboard-list w-5 h-5 text-uccuyo-primary"></i>
+              Fórmula Leucocitaria Relativa
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">Valores porcentuales de referencia en frotis de sangre periférica.</p>
+          </div>
+
+          <!-- Barras de Distribución Leucocitaria -->
+          <div class="space-y-3 text-xs" id="differentialBarsContainer">
+            <!-- Neutrófilos -->
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-violet-500"></span> Neutrófilos</span>
+                <span id="valNeu" class="font-mono text-purple-900 font-bold">65 % (Ref: 60-70%)</span>
+              </div>
+              <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div id="barNeu" class="bg-violet-600 h-full rounded-full transition-all duration-500" style="width: 65%;"></div>
+              </div>
+            </div>
+
+            <!-- Linfocitos -->
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Linfocitos (B, T, NK)</span>
+                <span id="valLin" class="font-mono text-blue-900 font-bold">25 % (Ref: 20-25%)</span>
+              </div>
+              <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div id="barLin" class="bg-blue-600 h-full rounded-full transition-all duration-500" style="width: 25%;"></div>
+              </div>
+            </div>
+
+            <!-- Monocitos -->
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Monocitos (Precursor Macrófago)</span>
+                <span id="valMon" class="font-mono text-emerald-900 font-bold">5 % (Ref: 3-8%)</span>
+              </div>
+              <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div id="barMon" class="bg-emerald-600 h-full rounded-full transition-all duration-500" style="width: 5%;"></div>
+              </div>
+            </div>
+
+            <!-- Eosinófilos -->
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Eosinófilos</span>
+                <span id="valEos" class="font-mono text-amber-900 font-bold">3 % (Ref: 2-4%)</span>
+              </div>
+              <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div id="barEos" class="bg-amber-500 h-full rounded-full transition-all duration-500" style="width: 3%;"></div>
+              </div>
+            </div>
+
+            <!-- Basófilos -->
+            <div>
+              <div class="flex justify-between font-semibold mb-1">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Basófilos (Histamina/Heparina)</span>
+                <span id="valBas" class="font-mono text-rose-900 font-bold">0.5 % (Ref: 0.5-1%)</span>
+              </div>
+              <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div id="barBas" class="bg-rose-500 h-full rounded-full transition-all duration-500" style="width: 2%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Patrones Clínicos de Desviación -->
+          <div class="pt-4 border-t border-slate-200 space-y-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 block">Correlación Fisiopatológica:</span>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <button onclick="setDifferentialPattern('normal')" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 font-semibold text-slate-700 transition">
+                Hemograma Normal
+              </button>
+              <button onclick="setDifferentialPattern('bacteriana')" class="p-2 rounded-lg bg-violet-100 hover:bg-violet-200 font-semibold text-violet-900 transition">
+                Infección Bacteriana (Neutrofilia)
+              </button>
+              <button onclick="setDifferentialPattern('viral')" class="p-2 rounded-lg bg-blue-100 hover:bg-blue-200 font-semibold text-blue-900 transition">
+                Infección Viral (Linfocitosis)
+              </button>
+              <button onclick="setDifferentialPattern('alergia')" class="p-2 rounded-lg bg-amber-100 hover:bg-amber-200 font-semibold text-amber-900 transition">
+                Parasitosis / Alergia (Eosinofilia)
+              </button>
+            </div>
+          </div>
+
+          <div id="clinicalCaseSummary" class="p-3 bg-slate-50 rounded-xl text-xs text-slate-700 border border-slate-200">
+            <strong>Fórmula Fisiológica de Adulto Sano:</strong> Predominio absoluto de neutrófilos polimorfonucleares segmentados, seguidos por linfocitos mononucleares.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- MÓDULO 4: PLAQUETAS Y HEMATOPOYESIS INTEGRADA -->
+    <!-- ========================================================================= -->
+    <section id="module-mod4" class="module-section hidden space-y-6 animate-fadeIn">
+      <div class="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 rounded-2xl p-6 text-white border border-cyan-800/40 shadow-xl">
+        <span class="inline-block px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-2 border border-cyan-400/30">Módulo 4 • Ontogenia Tisular y Citología Trombocítica</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white">Plaquetas y el Árbol de Diferenciación Hematopoyética</h2>
+        <p class="mt-2 text-slate-300 text-sm max-w-3xl leading-relaxed">
+          Toda la celularidad de la sangre se origina en la médula ósea roja a partir de una única <strong>Célula Madre Hematopoyética Pluripotencial ($\text{HSC}$)</strong>. Explore las líneas mieloides y linfoides, así como el origen del trombocito a partir de megacariocitos gigantes.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Árbol Hematopoyético Interactivo -->
+        <div class="lg:col-span-8 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+          <div class="border-b border-slate-200 pb-3 flex justify-between items-center">
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-code-merge w-5 h-5 text-uccuyo-secondary"></i>
+              Linajes: De la Célula Madre Pluripotencial a Células Maduras
+            </h3>
+            <span class="text-xs bg-cyan-100 text-cyan-800 font-bold px-2 py-1 rounded">Médula Ósea Roja</span>
+          </div>
+
+          <!-- Esquema interactivo de linajes -->
+          <div class="bg-slate-950 rounded-xl p-3 sm:p-4 text-white shadow-inner">
+            <div class="w-full flex flex-col items-center space-y-4">
+              
+              <!-- Nivel 1: Célula Madre -->
+              <div onclick="selectLineage('hsc')" class="cursor-pointer px-4 py-2 bg-gradient-to-r from-indigo-700 to-purple-800 rounded-xl border border-indigo-400 text-center shadow-lg hover:scale-105 transition max-w-xs">
+                <span class="text-[11px] uppercase tracking-wider font-semibold text-indigo-200 block">Pluripotente</span>
+                <strong class="text-xs sm:text-sm font-bold text-white block">HSC (Célula Madre Hematopoyética)</strong>
+                <span class="text-[10px] text-indigo-300 block">Autorrenovación continua</span>
+              </div>
+
+              <!-- Ramificación visual -->
+              <div class="w-2/3 border-t-2 border-indigo-500/40 relative h-2"></div>
+
+              <!-- Nivel 2: Progenitores Comunes -->
+              <div class="w-full grid grid-cols-2 gap-3 sm:gap-4">
+                <!-- Progenitor Mieloide -->
+                <div onclick="selectLineage('cmp')" class="cursor-pointer p-2.5 sm:p-3 bg-slate-900 rounded-xl border border-red-500/50 text-center shadow hover:border-red-400 transition">
+                  <span class="text-[10px] sm:text-xs uppercase tracking-wider font-semibold text-red-300 block">Línea Mieloide</span>
+                  <strong class="text-xs sm:text-sm font-bold text-white block">CMP (Progenitor Mieloide Común)</strong>
+                  <span class="text-[10px] text-slate-400 block mt-0.5">Factor: $\text{IL-3, GM-CSF}$</span>
+                </div>
+
+                <!-- Progenitor Linfoide -->
+                <div onclick="selectLineage('clp')" class="cursor-pointer p-2.5 sm:p-3 bg-slate-900 rounded-xl border border-blue-500/50 text-center shadow hover:border-blue-400 transition">
+                  <span class="text-[10px] sm:text-xs uppercase tracking-wider font-semibold text-blue-300 block">Línea Linfoide</span>
+                  <strong class="text-xs sm:text-sm font-bold text-white block">CLP (Progenitor Linfoide Común)</strong>
+                  <span class="text-[10px] text-slate-400 block mt-0.5">Factor: $\text{IL-7}$</span>
+                </div>
+              </div>
+
+              <!-- Nivel 3: Elementos Terminales -->
+              <div class="w-full grid grid-cols-2 gap-3 sm:gap-4 pt-1">
+                <!-- Derivados Mieloides (3 columnas compactas) -->
+                <div class="grid grid-cols-3 gap-1.5 text-center">
+                  <div onclick="selectLineage('erythro')" class="p-1.5 sm:p-2 bg-red-950/60 border border-red-800 rounded-lg cursor-pointer hover:bg-red-900/60 transition flex flex-col justify-center min-h-[52px]">
+                    <span class="font-bold text-red-300 block text-[11px] leading-tight">Eritrocitos</span>
+                    <span class="text-[9px] text-slate-400 mt-0.5">Vía EPO</span>
+                  </div>
+                  <div onclick="selectLineage('platelets')" class="p-1.5 sm:p-2 bg-cyan-950/60 border border-cyan-800 rounded-lg cursor-pointer hover:bg-cyan-900/60 ring-2 ring-cyan-500 transition flex flex-col justify-center min-h-[52px]">
+                    <span class="font-bold text-cyan-300 block text-[11px] leading-tight">Plaquetas</span>
+                    <span class="text-[9px] text-slate-400 mt-0.5">Megacariocito</span>
+                  </div>
+                  <div onclick="selectLineage('granulo')" class="p-1.5 sm:p-2 bg-purple-950/60 border border-purple-800 rounded-lg cursor-pointer hover:bg-purple-900/60 transition flex flex-col justify-center min-h-[52px]">
+                    <span class="font-bold text-purple-300 block text-[10px] leading-tight">Granuloc./Monoc.</span>
+                    <span class="text-[9px] text-slate-400 mt-0.5">Vía G/M-CSF</span>
+                  </div>
+                </div>
+
+                <!-- Derivados Linfoides (3 columnas compactas) -->
+                <div class="grid grid-cols-3 gap-1.5 text-center">
+                  <div onclick="selectLineage('linfoT')" class="p-1.5 sm:p-2 bg-blue-950/60 border border-blue-800 rounded-lg cursor-pointer hover:bg-blue-900/60 transition flex flex-col justify-center min-h-[52px]">
+                    <span class="font-bold text-blue-300 block text-[11px] leading-tight">Linfocito T</span>
+                    <span class="text-[9px] text-slate-400 mt-0.5">Maduración Tímica</span>
+                  </div>
+                  <div onclick="selectLineage('linfoB')" class="p-1.5 sm:p-2 bg-blue-950/60 border border-blue-800 rounded-lg cursor-pointer hover:bg-blue-900/60 transition flex flex-col justify-center min-h-[52px]">
+                    <span class="font-bold text-blue-300 block text-[11px] leading-tight">Linfocito B</span>
+                    <span class="text-[9px] text-slate-400 mt-0.5">Plasmáticas</span>
+                  </div>
+                  <div onclick="selectLineage('nk')" class="p-1.5 sm:p-2 bg-indigo-950/60 border border-indigo-800 rounded-lg cursor-pointer hover:bg-indigo-900/60 transition flex flex-col justify-center min-h-[52px]">
+                    <span class="font-bold text-indigo-300 block text-[11px] leading-tight">Células NK</span>
+                    <span class="text-[9px] text-slate-400 mt-0.5">Citotóxicas</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Tarjeta de detalle de linaje -->
+          <div id="lineageDetailBox" class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1">
+            <strong class="text-sm text-slate-900 font-bold block" id="lineageTitle">Trombopoyesis y Megacariocitos</strong>
+            <p id="lineageText" class="text-slate-600 leading-relaxed">
+              Bajo la estimulación de la hormona hepatorrenal <strong>Trombopoyetina ($\text{TPO}$)</strong>, las células precursoras mieloides originan el <strong>megacariocito</strong>, una célula gigante poliploide ($50\text{--}100\,\mu\text{m}$) en médula ósea roja. A través de extensiones citoplasmáticas denominadas proplaquetas, se desprenden fragmentos anucleados hacia la luz sinusoidal.
+            </p>
+          </div>
+        </div>
+
+        <!-- Fisiología Específica de la Plaqueta -->
+        <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4 flex flex-col justify-between">
+          <div>
+            <div class="border-b border-slate-200 pb-3">
+              <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                <i class="fa-solid fa-circle-nodes w-5 h-5 text-platelet-600"></i>
+                Estructura de la Plaqueta
+              </h3>
+              <span class="text-xs text-slate-500">Fragmentos citoplasmáticos vesiculares</span>
+            </div>
+
+            <!-- Canvas de la Plaqueta en Reposo vs Activada -->
+            <div class="my-4 bg-slate-900 rounded-xl p-3 flex flex-col items-center justify-center relative shadow-inner">
+              <canvas id="plateletCanvas" width="220" height="150" class="rounded"></canvas>
+              <div class="flex gap-2 mt-2">
+                <button onclick="setPlateletState(false)" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded text-[11px] font-semibold border border-cyan-800">
+                  Reposo Discoide
+                </button>
+                <button onclick="setPlateletState(true)" class="px-2 py-1 bg-cyan-700 hover:bg-cyan-600 text-white rounded text-[11px] font-semibold shadow">
+                  Activada con Seudópodos
+                </button>
+              </div>
+            </div>
+
+            <!-- Parámetros Numéricos Fisiológicos Clave -->
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 bg-cyan-50 rounded-lg border border-cyan-100 flex justify-between items-center">
+                <span class="text-slate-600">Recuento Normal:</span>
+                <strong class="text-cyan-950 font-bold">$150.000\text{--}400.000/\mu\text{L}$</strong>
+              </div>
+              <div class="p-2.5 bg-cyan-50 rounded-lg border border-cyan-100 flex justify-between items-center">
+                <span class="text-slate-600">Diámetro medio:</span>
+                <strong class="text-cyan-950 font-bold">$2\text{--}4\,\mu\text{m}$</strong>
+              </div>
+              <div class="p-2.5 bg-cyan-50 rounded-lg border border-cyan-100 flex justify-between items-center">
+                <span class="text-slate-600">Vida Media Fisiológica:</span>
+                <strong class="text-cyan-950 font-bold">$5\text{--}9\text{ días}$</strong>
+              </div>
+              <div class="p-2.5 bg-cyan-50 rounded-lg border border-cyan-100 flex justify-between items-center">
+                <span class="text-slate-600">Rendimiento Megacariocítico:</span>
+                <strong class="text-cyan-950 font-bold">$2.000\text{--}3.000\text{ plaquetas/célula}$</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-[11px] text-slate-500 bg-slate-100 p-2.5 rounded-lg border border-slate-200">
+            <strong>Eliminación Senescente:</strong> Las plaquetas desgastadas son fagocitadas por los macrófagos del bazo e hígado tras aproximadamente una semana en circulación.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- MÓDULO 5: FISIOLOGÍA DE LA HEMOSTASIA Y CASCADA DE COAGULACIÓN -->
+    <!-- ========================================================================= -->
+    <section id="module-mod5" class="module-section hidden space-y-6 animate-fadeIn">
+      <div class="bg-gradient-to-r from-slate-900 via-rose-950 to-slate-900 rounded-2xl p-6 text-white border border-red-800/40 shadow-xl">
+        <span class="inline-block px-3 py-1 rounded-full bg-red-500/20 text-red-300 text-xs font-bold uppercase tracking-wider mb-2 border border-red-400/30">Módulo 5 • Fisiología Cardiovascular y Hemostática</span>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white">Hemostasia Fisiológica y Cascada de Coagulación</h2>
+        <p class="mt-2 text-slate-300 text-sm max-w-3xl leading-relaxed">
+          <strong>Axioma Conceptual Fundamental:</strong> La <em>Hemostasia</em> es el conjunto integral e interdependiente de procesos biológicos que detienen la pérdida de sangre desde un vaso lesionado; la <em>Coagulación</em> es únicamente su fase química enzimática secundaria destinada a crear una malla estable de fibrina.
+        </p>
+      </div>
+
+      <!-- Simulador Secuencial de Lesión Vascular y Fases Hemostáticas -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+          <div>
+            <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved w-5 h-5 text-erythro-600"></i>
+              Mecanismo Secuencial de Reparación Vascular en 4 Fases
+            </h3>
+            <span class="text-xs text-slate-500">Avance secuencial paso a paso del trombo fisiológico</span>
+          </div>
+
+          <!-- Step Buttons -->
+          <div class="flex flex-wrap gap-1.5 sm:gap-2">
+            <button onclick="setHemostasisPhase(1)" id="phaseBtn-1" class="phase-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-erythro-600 text-white shadow">
+              1. Vasoespasmo
+            </button>
+            <button onclick="setHemostasisPhase(2)" id="phaseBtn-2" class="phase-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-100 text-slate-700 hover:bg-slate-200">
+              2. Tapón Plaquetario
+            </button>
+            <button onclick="setHemostasisPhase(3)" id="phaseBtn-3" class="phase-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-100 text-slate-700 hover:bg-slate-200">
+              3. Coagulación (Fibrina)
+            </button>
+            <button onclick="setHemostasisPhase(4)" id="phaseBtn-4" class="phase-btn px-3 py-1.5 rounded-lg text-xs font-bold transition bg-slate-100 text-slate-700 hover:bg-slate-200">
+              4. Retracción & Lisis
+            </button>
+          </div>
+        </div>
+
+        <!-- Canvas de Simulación de la Luz Vascular y Lesión -->
+        <div class="relative bg-slate-950 rounded-2xl p-4 flex flex-col items-center justify-center overflow-hidden shadow-2xl">
+          <canvas id="hemostasisCanvas" width="760" height="260" class="w-full max-w-full rounded-lg"></canvas>
+          
+          <div class="mt-3 flex items-center justify-between w-full px-2 text-xs text-slate-400">
+            <span id="canvasPhaseIndicator" class="font-bold text-amber-300">Fase 1: Espasmo Miogénico Activo</span>
+            <button onclick="toggleHemostasisAnimation()" id="playPauseBtn" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-white rounded text-xs flex items-center gap-1.5">
+              <i class="fa-solid fa-play w-3.5 h-3.5"></i> Pausar / Reanudar Flujo
+            </button>
+          </div>
+        </div>
+
+        <!-- Detalle Fisiológico Teórico-Práctico de la Fase Actual -->
+        <div id="hemostasisExplanationPanel" class="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-xs md:text-sm text-slate-700 space-y-3">
+          <!-- Dynamic Content Rendered by JS -->
+        </div>
+
+        <!-- Esquema de la Cascada de Coagulación (Vía Extrínseca, Intrínseca y Común) -->
+        <div class="pt-4 border-t border-slate-200 space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-slate-900 text-base flex items-center gap-2">
+              <i class="fa-solid fa-network-wired w-5 h-5 text-uccuyo-primary"></i>
+              Arquitectura de la Coagulación Sanguínea (Vía Enzimática)
+            </h4>
+            <span class="text-xs bg-red-100 text-red-800 font-bold px-2.5 py-1 rounded">Cascada de Factores</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <!-- Vía Extrínseca -->
+            <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200">
+              <div class="flex items-center justify-between mb-2">
+                <strong class="text-rose-950 font-bold text-sm">Vía Extrínseca (Rápida)</strong>
+                <span class="text-[10px] bg-rose-200 text-rose-900 font-bold px-1.5 py-0.5 rounded">Segundos</span>
+              </div>
+              <p class="text-slate-600 mb-2">Se dispara por traumatismo de la pared vascular o tejidos circundantes.</p>
+              <div class="space-y-1.5 font-mono text-[11px] text-rose-900 bg-white/70 p-2.5 rounded-lg border border-rose-100">
+                <div>1. Liberación de <strong>Factor Tisular (FT / III)</strong></div>
+                <div>2. Formación del complejo <strong>FT + Factor VIIa + $\text{Ca}^{2+}$</strong></div>
+                <div>3. Activación directa del <strong>Factor X $\to$ Xa</strong></div>
+              </div>
+            </div>
+
+            <!-- Vía Intrínseca -->
+            <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200">
+              <div class="flex items-center justify-between mb-2">
+                <strong class="text-blue-950 font-bold text-sm">Vía Intrínseca (Compleja)</strong>
+                <span class="text-[10px] bg-blue-200 text-blue-900 font-bold px-1.5 py-0.5 rounded">Minutos</span>
+              </div>
+              <p class="text-slate-600 mb-2">Se activa al contacto del plasma con colágeno subendotelial cargado negativamente.</p>
+              <div class="space-y-1.5 font-mono text-[11px] text-blue-900 bg-white/70 p-2.5 rounded-lg border border-blue-100">
+                <div>1. Contacto: <strong>Factor XII $\to$ XIIa</strong></div>
+                <div>2. Activación secuencial: <strong>XI $\to$ XIa</strong> y <strong>IX $\to$ IXa</strong></div>
+                <div>3. Complejo tenasa: <strong>IXa + VIIIa + $\text{Ca}^{2+}$ + PL</strong></div>
+                <div>4. Activación masiva del <strong>Factor X $\to$ Xa</strong></div>
+              </div>
+            </div>
+
+            <!-- Vía Común -->
+            <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
+              <div class="flex items-center justify-between mb-2">
+                <strong class="text-emerald-950 font-bold text-sm">Vía Común & Malla Fibrina</strong>
+                <span class="text-[10px] bg-emerald-200 text-emerald-900 font-bold px-1.5 py-0.5 rounded">Consolidación</span>
+              </div>
+              <p class="text-slate-600 mb-2">Punto de convergencia que culmina con la polimerización del coágulo definitivo.</p>
+              <div class="space-y-1.5 font-mono text-[11px] text-emerald-900 bg-white/70 p-2.5 rounded-lg border border-emerald-100">
+                <div>1. Complejo Protrombinasa: <strong>Xa + Va + $\text{Ca}^{2+}$ + PL</strong></div>
+                <div>2. Protrombina (II) $\to$ <strong>Trombina (IIa)</strong></div>
+                <div>3. Fibrinógeno (I) $\to$ <strong>Monómeros de Fibrina (Ia)</strong></div>
+                <div>4. Factor XIIIa estabiliza enlaces covalentes cruzados</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+      </div>
+  
+        </div>
+    </main>
+
+    <!-- Modal Tutorial / Guía de Uso -->
+    <div id="tutorial-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-3xl w-full p-6 sm:p-7 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto custom-scroll">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                <div class="flex items-center gap-2.5 text-accent">
+                    <i class="fa-solid fa-book-open-reader text-xl"></i>
+                    <h3 class="text-base sm:text-lg font-bold text-gray-900 uppercase tracking-wide">Guía de Uso del Simulador Interactivo</h3>
+                </div>
+                <button onclick="closeTutorial()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">&times;</button>
+            </div>
+            
+            <div class="space-y-4 text-xs sm:text-sm text-gray-600 leading-relaxed">
+                <p>
+                    Bienvenido al <strong>Simulador Interactivo de Fisiología Sanguínea, Hemopoyesis y Cascada de Hemostasia</strong> para aspirantes a la carrera de Medicina (Facultad de Ciencias Médicas - Universidad Católica de Cuyo).
+                </p>
+
+                <div class="space-y-3">
+                    <h4 class="font-bold text-gray-800 text-sm flex items-center gap-2 border-b border-gray-100 pb-1.5">
+                        <i class="fa-solid fa-compass text-accent"></i>
+                        Estructura de los Módulos de Aprendizaje
+                    </h4>
+
+                    <!-- Módulo 1 -->
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-gray-200 space-y-2">
+                        <div class="font-bold text-gray-900 text-xs sm:text-sm flex items-center gap-2 text-accent">
+                            <i class="fa-solid fa-vial-virus"></i> 1. La Sangre como Tejido Conjuntivo & Centrifugación
+                        </div>
+                        <ul class="list-disc list-inside space-y-1.5 text-xs text-gray-700 ml-1">
+                            <li><strong>Tubo de Wintrobe y Fraccionamiento Fisiológico:</strong> Explora la muestra centrifugada a 3.000 rpm y observa la estratificación directa en plasma (~55%), interfase leucoplaquetaria o <em>buffy coat</em> (&lt; 1%) y paquete eritrocitario sedimentado (hematocrito fisiológico ~45%).</li>
+                            <li><strong>Regulación Dinámica del Hematocrito:</strong> Modifica interactivamente el deslizador de hematocrito o selecciona casos clínicos evaluables (Fisiológico, Anemia Severa, Poliglobulia o Deshidratación) para comprobar cómo varía la volemia plasmática efectiva y la viscosidad hemodinámica.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Módulo 2 -->
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-gray-200 space-y-2">
+                        <div class="font-bold text-gray-900 text-xs sm:text-sm flex items-center gap-2 text-accent">
+                            <i class="fa-solid fa-circle-dot"></i> 2. Eritrocitos & Regulación de la Eritropoyesis
+                        </div>
+                        <ul class="list-disc list-inside space-y-1.5 text-xs text-gray-700 ml-1">
+                            <li><strong>Modelo 3D del Disco Bicóncavo (Evans-Fung):</strong> Rota libremente en 360° con mouse o pantalla táctil la superficie sólida del glóbulo rojo ($7.5\text{--}8\,\mu\text{m}$ de diámetro mayor, $2\,\mu\text{m}$ de borde y centro deprimido), anucleado y adaptado para alojar $280\times 10^6$ moléculas de hemoglobina ($\text{Hb}$).</li>
+                            <li><strong>Bucle Renal-Medular de Retroalimentación de la EPO:</strong> Ajusta la tensión tisular de oxígeno ($\text{pO}_2$) para simular hipoxia (grandes alturas, anemias) o hiperoxia, observando la activación de las células peritubulares renales, la síntesis de eritropoyetina y la respuesta eritropoyética en médula ósea roja.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Módulo 3 -->
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-gray-200 space-y-2">
+                        <div class="font-bold text-gray-900 text-xs sm:text-sm flex items-center gap-2 text-accent">
+                            <i class="fa-solid fa-microscope"></i> 3. Leucocitos & Fórmula Leucocitaria Relativa
+                        </div>
+                        <ul class="list-disc list-inside space-y-1.5 text-xs text-gray-700 ml-1">
+                            <li><strong>Microscopio Virtual con Tinción Giemsa (100x):</strong> Explora el frotis sanguíneo interactivo. Haz clic sobre cada glóbulo blanco en el campo microscópico para identificar granulocitos (neutrófilos $60\text{--}70\%$, eosinófilos $2\text{--}4\%$, basófilos $0.5\text{--}1\%$) y agranulocitos (linfocitos $20\text{--}25\%$, monocitos $3\text{--}8\%$).</li>
+                            <li><strong>Laboratorio Diagnóstico Diferencial:</strong> Aplica frotis clínicos preconfigurados para correlacionar desviaciones hematológicas: neutrofilia en infecciones bacterianas, eosinofilia en parasitosis o cuadros alérgicos, y linfocitosis en infecciones virales.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Módulo 4 -->
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-gray-200 space-y-2">
+                        <div class="font-bold text-gray-900 text-xs sm:text-sm flex items-center gap-2 text-accent">
+                            <i class="fa-solid fa-sitemap"></i> 4. Plaquetas & Hematopoyesis Integrada
+                        </div>
+                        <ul class="list-disc list-inside space-y-1.5 text-xs text-gray-700 ml-1">
+                            <li><strong>Árbol de Diferenciación Hematopoyética:</strong> Explora sin desplazamiento ni barras de scroll la jerarquía celular completa desde la Célula Madre Hematopoyética Pluripotencial ($\text{HSC}$) hacia el progenitor mieloide común (CMP) y linfoide común (CLP) con sus factores reguladores ($\text{IL-3, GM-CSF, IL-7}$).</li>
+                            <li><strong>Citología Trombocítica y Activación:</strong> Alterna entre la plaqueta en reposo discoide y la plaqueta activada con emisión de pseudópodos estrellados, conociendo su origen megacariocítico y recuento fisiológico ($150.000\text{--}400.000/\mu\text{L}$).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Módulo 5 -->
+                    <div class="p-3.5 bg-slate-50 rounded-xl border border-gray-200 space-y-2">
+                        <div class="font-bold text-gray-900 text-xs sm:text-sm flex items-center gap-2 text-accent">
+                            <i class="fa-solid fa-shield-halved"></i> 5. Fisiología de la Hemostasia & Cascada de Coagulación
+                        </div>
+                        <ul class="list-disc list-inside space-y-1.5 text-xs text-gray-700 ml-1">
+                            <li><strong>Distinción Hemostasia vs. Coagulación:</strong> Interioriza la diferencia conceptual entre la respuesta biológica global ante la injuria vascular (hemostasia) y la fase química enzimática de formación de fibrina (coagulación secundaria).</li>
+                            <li><strong>Simulador Dinámico de Reparación en 4 Fases:</strong> Navega paso a paso por: 1. Vasoespasmo miogénico constrictor con reducción del flujo hemorrágico, 2. Tapón plaquetario primario sobre el colágeno expuesto, 3. Malla polimérica de fibrina y coágulo consolidado (Factor XIIIa), y 4. Retracción y fibrinólisis por plasmina con reepitelización endotelial. Incluye botón de pausa/reanudación del flujo laminar.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 space-y-1.5">
+                    <h4 class="font-bold flex items-center gap-1.5 text-xs sm:text-sm">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        Recomendaciones para el Examen de Ingreso UCCuyo
+                    </h4>
+                    <p class="text-xs leading-relaxed">
+                        Domina los valores de referencia del hemograma normal (recuento eritrocitario, leucocitario y plaquetario) y la distinción de mecanismos primarios y secundarios de la hemostasia; son ejes conceptuales reiterados en el examen de ingreso.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-3 border-t border-gray-100 flex justify-end">
+                <button onclick="closeTutorial()" class="px-5 py-2.5 bg-accent text-white text-xs sm:text-sm font-semibold rounded-xl hover:bg-accent-hover transition shadow-sm">
+                    Entendido, comenzar exploración
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de Página Institucional Obligatorio -->
+    <footer class="bg-white border-t border-gray-200 py-4 mt-8 text-center text-xs text-gray-500">
+        Desarrollado por vesalio - Todos los derechos reservados
+    </footer>
+
+    <!-- Script Principal -->
+    <script>
+
+    // Iniciar Lucide Icons
+    document.addEventListener("DOMContentLoaded", () => {
+      
+      initWintrobeCanvas();
+      initRBCCanvas();
+      initMicroscopeCanvas();
+      initPlateletCanvas();
+      initHemostasisCanvas();
+      setHemostasisPhase(1);
+    });
+
+    // -------------------------------------------------------------
+    // Control de la Guía de Uso (Modal Tutorial) y Navegación
+    // -------------------------------------------------------------
+    function openTutorial() {
+      const m = document.getElementById('tutorial-modal');
+      if (m) {
+        m.classList.remove('hidden');
+        if (window.renderMathInElement) {
+          window.renderMathInElement(m, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+    }
+
+    function closeTutorial() {
+      const m = document.getElementById('tutorial-modal');
+      if (m) m.classList.add('hidden');
+    }
+
+    function switchTab(tabId) {
+      const tabs = ['mod1', 'mod2', 'mod3', 'mod4', 'mod5'];
+      tabs.forEach(t => {
+        const sec = document.getElementById('module-' + t);
+        const btn = document.getElementById('nav-' + t);
+        if (sec) {
+          if (t === tabId) {
+            sec.classList.remove('hidden');
+          } else {
+            sec.classList.add('hidden');
+          }
+        }
+        if (btn) {
+          if (t === tabId) {
+            btn.className = "nav-btn bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-3.5 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center gap-2.5 shadow-sm";
+          } else {
+            btn.className = "nav-btn text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-3.5 rounded-xl text-xs sm:text-sm font-medium transition flex items-center gap-2.5";
+          }
+        }
+      });
+
+      // Redibujar y actualizar canvases al mostrar cada módulo
+      if (tabId === 'mod1') initWintrobeCanvas();
+      if (tabId === 'mod2') initRBCCanvas();
+      if (tabId === 'mod3') initMicroscopeCanvas();
+      if (tabId === 'mod4') initPlateletCanvas();
+      if (tabId === 'mod5') {
+        initHemostasisCanvas();
+        setHemostasisPhase(1);
+      }
+
+      if (window.renderMathInElement) {
+        const activeSec = document.getElementById('module-' + tabId);
+        if (activeSec) {
+          window.renderMathInElement(activeSec, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false}
+            ],
+            throwOnError: false
+          });
+        }
+      }
+    }
+
+    function setupHiDPICanvas(canvas) {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      const logicalWidth = canvas.dataset.origWidth ? parseFloat(canvas.dataset.origWidth) : (canvas.getAttribute('width') ? parseFloat(canvas.getAttribute('width')) : (rect.width || 300));
+      const logicalHeight = canvas.dataset.origHeight ? parseFloat(canvas.dataset.origHeight) : (canvas.getAttribute('height') ? parseFloat(canvas.getAttribute('height')) : (rect.height || 150));
+      
+      canvas.dataset.origWidth = logicalWidth;
+      canvas.dataset.origHeight = logicalHeight;
+
+      canvas.width = Math.round(logicalWidth * dpr);
+      canvas.height = Math.round(logicalHeight * dpr);
+      canvas.style.width = logicalWidth + 'px';
+      canvas.style.height = logicalHeight + 'px';
+
+      const ctx = canvas.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      return { ctx, width: logicalWidth, height: logicalHeight, dpr };
+    }
+
+    // -------------------------------------------------------------
+    // MÓDULO 1: TUBO DE WINTROBE Y CENTRIFUGACIÓN
+    // -------------------------------------------------------------
+    let wintrobeCtx = null;
+    let htoValue = 45; // %
+    let isCentrifuging = false;
+    let spinAngle = 0;
+
+    function initWintrobeCanvas() {
+      const canvas = document.getElementById('wintrobeCanvas');
+      const setup = setupHiDPICanvas(canvas);
+      wintrobeCtx = setup.ctx;
+      drawWintrobe(htoValue, true);
+
+      const slider = document.getElementById('htoSlider');
+      slider.addEventListener('input', (e) => {
+        htoValue = parseInt(e.target.value);
+        document.getElementById('sliderValue').innerText = htoValue + ' %';
+        document.getElementById('labelHto').innerText = htoValue + ' %';
+        document.getElementById('labelPlasma').innerText = (100 - htoValue) + ' %';
+        drawWintrobe(htoValue, true);
+        updateHtoClinicalFeedback(htoValue);
+      });
+    }
+
+    function setClinicalCase(type) {
+      const slider = document.getElementById('htoSlider');
+      if (type === 'normal') htoValue = 45;
+      if (type === 'anemia') htoValue = 24;
+      if (type === 'policitemia') htoValue = 65;
+      if (type === 'deshidratacion') htoValue = 56;
+
+      slider.value = htoValue;
+      document.getElementById('sliderValue').innerText = htoValue + ' %';
+      document.getElementById('labelHto').innerText = htoValue + ' %';
+      document.getElementById('labelPlasma').innerText = (100 - htoValue) + ' %';
+      drawWintrobe(htoValue, true);
+      updateHtoClinicalFeedback(htoValue);
+    }
+
+    function updateHtoClinicalFeedback(hto) {
+      const exp = document.getElementById('clinicalExplanation');
+      if (hto < 35) {
+        exp.innerHTML = `<span class="font-bold text-rose-700">Anemia Clínica Significativa ($\text{Hto} = ${hto}\%$):</span> Reducción crítica de la masa eritrocitaria. Se compromete el transporte de $\\text{O}_2$, obligando al corazón a aumentar el gasto cardíaco compensatorio para suplir la hipoxia tisular.`;
+      } else if (hto > 55) {
+        exp.innerHTML = `<span class="font-bold text-red-700">Poliglobulia / Policitemia ($\text{Hto} = ${hto}\%$):</span> Concentración eritrocitaria patológica. Incrementa exponencialmente la viscosidad de la sangre, elevando la postcarga y el riesgo de trombosis arteriales o venosas.`;
+      } else if (hto >= 50 && hto <= 55) {
+        exp.innerHTML = `<span class="font-bold text-amber-700">Hemoconcentración Relativa ($\text{Hto} = ${hto}\%$):</span> Típica de deshidratación grave. No hay exceso real de glóbulos rojos, sino contracción aguda del volumen plasmático por balance hídrico negativo.`;
+      } else {
+        exp.innerHTML = `<span class="font-bold text-emerald-700">Hematocrito Fisiológico ($\text{Hto} = ${hto}\%$):</span> Dentro del rango normal para adultos sanos ($40\\text{--}50\\%$). Óptima fluidez hemodinámica y adecuada oxigenación celular.`;
+      }
+      if (window.renderMathInElement) renderMathInElement(exp, {delimiters: [{left: '$', right: '$', display: false}]});
+    }
+
+    function triggerCentrifuge() {
+      // Centrifugación ya consolidada de forma estática y directa
+      drawWintrobe(htoValue, true);
+    }
+
+    function drawWintrobe(hto, separated) {
+      if (!wintrobeCtx) return;
+      const ctx = wintrobeCtx;
+      const w = parseFloat(ctx.canvas.dataset.origWidth) || 220;
+      const h = parseFloat(ctx.canvas.dataset.origHeight) || 340;
+      ctx.clearRect(0, 0, w, h);
+
+      // Dimensiones del tubo de Wintrobe centrado en canvas de 140px
+      const tubeW = 46;
+      const tubeH = 260;
+      const x = (w - tubeW) / 2 - 14;
+      const y = 30;
+
+      // Base y sombra del tubo
+      ctx.fillStyle = "rgba(0,0,0,0.3)";
+      ctx.beginPath();
+      ctx.ellipse(x + tubeW/2, y + tubeH + 5, tubeW/2, 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Contenido líquido
+      const innerX = x + 3;
+      const innerW = tubeW - 6;
+      const innerH = tubeH - 10;
+      const innerY = y + 5;
+
+      if (separated) {
+        // Altura de eritrocitos
+        const rbcHeight = (hto / 100) * innerH;
+        const buffyHeight = 4; // <1%
+        const plasmaHeight = innerH - rbcHeight - buffyHeight;
+
+        // Plasma (Ámbar claro transparente)
+        const plasmaGrad = ctx.createLinearGradient(innerX, innerY, innerX + innerW, innerY);
+        plasmaGrad.addColorStop(0, '#fde68a');
+        plasmaGrad.addColorStop(0.5, '#fef08a');
+        plasmaGrad.addColorStop(1, '#f59e0b');
+        ctx.fillStyle = plasmaGrad;
+        ctx.fillRect(innerX, innerY, innerW, plasmaHeight);
+
+        // Buffy coat (blanquecino grisáceo)
+        ctx.fillStyle = "#f1f5f9";
+        ctx.fillRect(innerX, innerY + plasmaHeight, innerW, buffyHeight);
+
+        // Capa eritrocitaria (Rojo rubí denso)
+        const rbcGrad = ctx.createLinearGradient(innerX, innerY + plasmaHeight + buffyHeight, innerX + innerW, innerY + plasmaHeight + buffyHeight);
+        rbcGrad.addColorStop(0, '#991b1b');
+        rbcGrad.addColorStop(0.5, '#b91c1c');
+        rbcGrad.addColorStop(1, '#7f1d1d');
+        ctx.fillStyle = rbcGrad;
+        ctx.fillRect(innerX, innerY + plasmaHeight + buffyHeight, innerW, rbcHeight);
+      }
+
+      // Cristal del tubo (reflejos y contorno)
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.roundRect(x, y, tubeW, tubeH, [4, 4, 16, 16]);
+      ctx.stroke();
+
+      // Graduación milimétrica (0 a 100)
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      ctx.font = "8px monospace";
+      for (let i = 0; i <= 10; i++) {
+        const markY = (innerY + innerH) - (i / 10) * innerH;
+        ctx.fillRect(x + tubeW - 8, markY, 6, 1);
+        ctx.fillText((i * 10).toString(), x + tubeW + 4, markY + 3);
+      }
+    }
+
+    function drawWintrobeMixing(progress) {
+      const ctx = wintrobeCtx;
+      const w = ctx.canvas.width;
+      const tubeW = 46;
+      const tubeH = 260;
+      const x = (w - tubeW) / 2 - 14;
+      const y = 30;
+      const innerX = x + 3;
+      const innerW = tubeW - 6;
+      const innerH = tubeH - 10;
+      const innerY = y + 5;
+
+      ctx.clearRect(0, 0, w, ctx.canvas.height);
+
+      // Color de transición entre sangre entera mezclada y separada
+      const mixGrad = ctx.createLinearGradient(innerX, innerY, innerX, innerY + innerH);
+      mixGrad.addColorStop(0, `rgba(245, 158, 11, ${progress})`);
+      mixGrad.addColorStop(1 - progress, '#7f1d1d');
+      mixGrad.addColorStop(1, '#991b1b');
+      ctx.fillStyle = mixGrad;
+      ctx.fillRect(innerX, innerY, innerW, innerH);
+
+      // Contorno de vidrio
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.roundRect(x, y, tubeW, tubeH, [4, 4, 16, 16]);
+      ctx.stroke();
+    }
+
+    // -------------------------------------------------------------
+    // MÓDULO 2: ERITROCITO EN 3D Y BUCLE DE EPO
+    // -------------------------------------------------------------
+    let rbcCtx = null;
+    let rbcRotX = 0.3;
+    let rbcRotY = 0.4;
+    let isDraggingRBC = false;
+    let lastMouseX = 0, lastMouseY = 0;
+
+    function initRBCCanvas() {
+      const canvas = document.getElementById('rbcCanvas');
+      const setup = setupHiDPICanvas(canvas);
+      rbcCtx = setup.ctx;
+      draw3DRBC();
+
+      // Control táctil y de ratón unificado para rotación 3D
+      function startDrag(clientX, clientY) {
+        isDraggingRBC = true;
+        lastMouseX = clientX;
+        lastMouseY = clientY;
+      }
+
+      function moveDrag(clientX, clientY) {
+        if (!isDraggingRBC) return;
+        const dx = clientX - lastMouseX;
+        const dy = clientY - lastMouseY;
+        rbcRotY += dx * 0.012;
+        rbcRotX += dy * 0.012;
+        lastMouseX = clientX;
+        lastMouseY = clientY;
+        draw3DRBC();
+      }
+
+      function stopDrag() {
+        isDraggingRBC = false;
+      }
+
+      canvas.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
+      window.addEventListener('mouseup', stopDrag);
+      canvas.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
+
+      canvas.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          startDrag(e.touches[0].clientX, e.touches[0].clientY);
+          e.preventDefault();
+        }
+      }, { passive: false });
+      window.addEventListener('touchend', stopDrag);
+      canvas.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1 && isDraggingRBC) {
+          moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      // Slider de pO2
+      const slider = document.getElementById('po2Slider');
+      slider.addEventListener('input', (e) => {
+        setHypoxiaScenario(parseInt(e.target.value));
+      });
+    }
+
+    // Renderizado 3D Sólido y Realista del Disco Bicóncavo (Ecuación de Evans & Fung)
+    function getEvansFungThickness(rNorm) {
+      if (rNorm >= 1) return 0;
+      // Perfil paramétrico biomédico: centro delgado (~0.8-1 um), borde periférico engrosado (~2.4 um)
+      const r2 = rNorm * rNorm;
+      const r4 = r2 * r2;
+      const r = Math.sqrt(Math.max(0, 1 - r2));
+      // Coeficientes normalizados de Evans-Fung adaptados para altura en píxeles (~24px max, ~8px min)
+      const val = 0.5 * r * (0.8 + 7.8 * r2 - 4.2 * r4);
+      return Math.max(0, val * 12);
+    }
+
+    function draw3DRBC() {
+      if (!rbcCtx) return;
+      const ctx = rbcCtx;
+      const w = parseFloat(ctx.canvas.dataset.origWidth) || 380;
+      const h = parseFloat(ctx.canvas.dataset.origHeight) || 220;
+      ctx.clearRect(0, 0, w, h);
+
+      // Fondo oscuro con sutil resplandor central
+      const bgGrad = ctx.createRadialGradient(w / 2, h / 2, 10, w / 2, h / 2, 160);
+      bgGrad.addColorStop(0, '#090d16');
+      bgGrad.addColorStop(1, '#020617');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.save();
+      ctx.translate(w / 2, h / 2);
+
+      const R = 85; // Radio exterior en píxeles
+      const radialSteps = 24;
+      const angularSteps = 48;
+
+      // Vector de luz direccional (arriba a la izquierda, hacia el espectador)
+      const lightX = -0.5, lightY = -0.7, lightZ = 0.52;
+      const lightLen = Math.hypot(lightX, lightY, lightZ);
+      const lx = lightX / lightLen, ly = lightY / lightLen, lz = lightZ / lightLen;
+
+      // Generar malla paramétrica continua con cara superior e inferior
+      const grid = []; // [uIndex][vIndex] => {x, y, z, nx, ny, nz}
+
+      for (let i = 0; i <= radialSteps; i++) {
+        const u = i / radialSteps; // 0 = centro, 1 = borde exterior
+        grid[i] = [];
+
+        // Ángulo de inclinación vertical de la semiesfera aplanada
+        // Para u=0 (polo superior), u=0.5 (ecuador), u=1 (polo inferior)
+        // Usamos parametrización polar:
+        const isUpper = i <= radialSteps / 2;
+        const normR = isUpper ? (i / (radialSteps / 2)) : (1 - (i - radialSteps / 2) / (radialSteps / 2));
+        const sign = isUpper ? 1 : -1;
+        const thick = getEvansFungThickness(normR) * sign;
+        const rCurrent = normR * R;
+
+        for (let j = 0; j <= angularSteps; j++) {
+          const theta = (j / angularSteps) * Math.PI * 2;
+          const x0 = rCurrent * Math.cos(theta);
+          const z0 = rCurrent * Math.sin(theta);
+          const y0 = thick;
+
+          // Normal aproximada de la superficie
+          const dR = 0.02;
+          const nextThick = getEvansFungThickness(Math.min(1, normR + dR)) * sign;
+          const slope = (nextThick - thick) / (dR * R || 1);
+          const nx0 = -slope * Math.cos(theta);
+          const nz0 = -slope * Math.sin(theta);
+          const ny0 = sign;
+          const nLen = Math.hypot(nx0, ny0, nz0) || 1;
+
+          // Rotación 3D (primero Y, luego X)
+          const cosY = Math.cos(rbcRotY), sinY = Math.sin(rbcRotY);
+          const cosX = Math.cos(rbcRotX), sinX = Math.sin(rbcRotX);
+
+          // Vértice
+          const x1 = x0 * cosY + z0 * sinY;
+          const z1 = -x0 * sinY + z0 * cosY;
+          const y2 = y0 * cosX - z1 * sinX;
+          const z2 = y0 * sinX + z1 * cosX;
+
+          // Normal rotada
+          const rnx1 = (nx0 / nLen) * cosY + (nz0 / nLen) * sinY;
+          const rnz1 = -(nx0 / nLen) * sinY + (nz0 / nLen) * cosY;
+          const rny2 = (ny0 / nLen) * cosX - rnz1 * sinX;
+          const rnz2 = (ny0 / nLen) * sinX + rnz1 * cosX;
+
+          grid[i][j] = {
+            x: x1, y: y2, z: z2,
+            nx: rnx1, ny: rny2, nz: rnz2
+          };
+        }
+      }
+
+      // Crear caras poligonales
+      const faces = [];
+      for (let i = 0; i < radialSteps; i++) {
+        for (let j = 0; j < angularSteps; j++) {
+          const p1 = grid[i][j];
+          const p2 = grid[i + 1][j];
+          const p3 = grid[i + 1][j + 1];
+          const p4 = grid[i][j + 1];
+
+          const avgZ = (p1.z + p2.z + p3.z + p4.z) / 4;
+          const avgNx = (p1.nx + p2.nx + p3.nx + p4.nx) / 4;
+          const avgNy = (p1.ny + p2.ny + p3.ny + p4.ny) / 4;
+          const avgNz = (p1.nz + p2.nz + p3.nz + p4.nz) / 4;
+
+          faces.push({
+            poly: [p1, p2, p3, p4],
+            z: avgZ,
+            nx: avgNx, ny: avgNy, nz: avgNz
+          });
+        }
+      }
+
+      // Pintor: ordenar caras desde la más lejana (Z menor) a la más cercana (Z mayor)
+      faces.sort((a, b) => a.z - b.z);
+
+      // Renderizar polígonos sólidos con sombreado difuso y especular rojo biológico
+      for (let f of faces) {
+        // Producto escalar para iluminación difusa
+        const dot = Math.max(0, f.nx * lx + f.ny * ly + f.nz * lz);
+        
+        // Especular sutil para brillo de membrana húmeda
+        const spec = Math.pow(Math.max(0, (f.nx * lx + f.ny * ly + f.nz * lz + f.nz) * 0.5), 18);
+
+        // Componente ambiental + difusa (Rojo rubí arterial a carmesí profundo)
+        const ambient = 0.28;
+        const intensity = Math.min(1, ambient + dot * 0.72);
+
+        const r = Math.min(255, Math.floor(190 * intensity + spec * 140));
+        const g = Math.min(255, Math.floor(22 * intensity + spec * 60));
+        const b = Math.min(255, Math.floor(28 * intensity + spec * 60));
+
+        ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+        ctx.strokeStyle = `rgba(${Math.floor(r * 0.9)}, ${Math.floor(g * 0.9)}, ${Math.floor(b * 0.9)}, 0.4)`;
+        ctx.lineWidth = 0.4;
+
+        ctx.beginPath();
+        ctx.moveTo(f.poly[0].x, f.poly[0].y);
+        ctx.lineTo(f.poly[1].x, f.poly[1].y);
+        ctx.lineTo(f.poly[2].x, f.poly[2].y);
+        ctx.lineTo(f.poly[3].x, f.poly[3].y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+      }
+
+      // Resplandor periférico de borde (halo biofísico)
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+      const haloGrad = ctx.createRadialGradient(0, 0, R * 0.6, 0, 0, R * 1.1);
+      haloGrad.addColorStop(0, 'transparent');
+      haloGrad.addColorStop(0.85, 'rgba(239, 68, 68, 0.12)');
+      haloGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = haloGrad;
+      ctx.beginPath();
+      ctx.arc(0, 0, R * 1.1, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    function setHypoxiaScenario(po2) {
+      document.getElementById('po2Slider').value = po2;
+      const display = document.getElementById('po2Display');
+      const badge = document.getElementById('loopStatusBadge');
+      const boxRenal = document.getElementById('boxRenal');
+      const boxMedula = document.getElementById('boxMedula');
+      const epoEmission = document.getElementById('epoEmission');
+      const reticRate = document.getElementById('reticulocyteRate');
+      const o2Value = document.getElementById('o2DeliveryValue');
+      const desc = document.getElementById('loopDescription');
+
+      if (po2 >= 85) {
+        display.innerText = `${po2} mmHg (Nivel del mar / Normoxia)`;
+        badge.className = "text-xs px-2.5 py-1 rounded-full font-bold bg-blue-100 text-blue-800";
+        badge.innerText = "Normoxia Fisiológica";
+        boxRenal.className = "bg-slate-800/90 border border-slate-700 p-3 rounded-xl transition duration-500 flex flex-col items-center";
+        epoEmission.innerText = "EPO: Basal (10-20 mU/mL)";
+        reticRate.innerText = "Reticulocitos: 0.5 - 1.5%";
+        o2Value.innerText = "Normal (SatO2 > 96%)";
+        o2Value.className = "font-bold font-mono text-emerald-400";
+        desc.innerText = "Nivel normal de oxígeno plasmático. Las células intersticiales peritubulares renales mantienen una transcripción basal del gen de EPO vía proteólisis de HIF-1α.";
+      } else if (po2 >= 55) {
+        display.innerText = `${po2} mmHg (Altitud de 3.000m / Hipoxia Moderada)`;
+        badge.className = "text-xs px-2.5 py-1 rounded-full font-bold bg-amber-100 text-amber-800";
+        badge.innerText = "Estímulo Eritropoyético";
+        boxRenal.className = "bg-amber-950/60 border border-amber-500 p-3 rounded-xl transition duration-500 flex flex-col items-center glow-amber";
+        epoEmission.innerText = "EPO: Elevada (x3 - x5)";
+        reticRate.innerText = "Reticulocitos: 2.5 - 4.0%";
+        o2Value.innerText = "Compensándose...";
+        o2Value.className = "font-bold font-mono text-amber-400";
+        desc.innerText = "El descenso de la pO2 estabiliza el factor inducible por hipoxia (HIF-1α), estimulando al riñón a sintetizar mayor cantidad de eritropoyetina. En médula ósea roja aumenta la mitosis de las unidades formadoras de colonias eritroides (CFU-E).";
+      } else {
+        display.innerText = `${po2} mmHg (Hipoxia Severa / Gran Altura)`;
+        badge.className = "text-xs px-2.5 py-1 rounded-full font-bold bg-red-100 text-red-800 animate-pulse";
+        badge.innerText = "Hipoxia Crítica";
+        boxRenal.className = "bg-red-950/80 border border-red-500 p-3 rounded-xl transition duration-500 flex flex-col items-center glow-red";
+        epoEmission.innerText = "EPO: Máxima (x1000)";
+        reticRate.innerText = "Reticulocitos: > 6.0%";
+        o2Value.innerText = "Déficit Tisular Grave";
+        o2Value.className = "font-bold font-mono text-rose-500";
+        desc.innerText = "Respuesta de alarma máxima. La médula ósea libera reticulocitos inmaduros a la sangre circulante a gran velocidad para aumentar de forma urgente la capacidad de transporte de oxígeno.";
+      }
+
+      if (window.renderMathInElement) renderMathInElement(desc, {delimiters: [{left: '$', right: '$', display: false}]});
+    }
+
+    // -------------------------------------------------------------
+    // MÓDULO 3: MICROSCOPIO VIRTUAL & FÓRMULA LEUCOCITARIA
+    // -------------------------------------------------------------
+    let microCtx = null;
+    let cellsInField = [];
+
+    const cellDatabase = {
+      neutrofilo: {
+        name: "Neutrófilo Segmentado (Polimorfonuclear)",
+        type: "Granulocito",
+        morph: "Diámetro 10-12 μm. Núcleo lobulado (3-5 lóbulos basófilos interconectados). Citoplasma con gránulos específicos neutros pequeños rosa pálido.",
+        fn: "Primera línea de defensa celular activa contra bacterias piógenas mediante diapédesis tisular y fagocitosis oxidativa.",
+        pct: "60 - 70%"
+      },
+      eosinofilo: {
+        name: "Eosinófilo",
+        type: "Granulocito",
+        morph: "Diámetro 10-14 μm. Núcleo bilobulado en 'alforja'. Gránulos esféricos grandes de color rojo-anaranjado intenso cargados de proteína básica principal.",
+        fn: "Fagocitosis de complejos antígeno-anticuerpo, modulación de respuestas alérgicas y citotoxicidad frente a parásitos helmintos.",
+        pct: "2 - 4%"
+      },
+      basofilo: {
+        name: "Basófilo",
+        type: "Granulocito",
+        morph: "Diámetro 8-10 μm. Núcleo en 'S' frecuentemente oculto por voluminosos gránulos azul-violáceos oscuros metacromáticos.",
+        fn: "Liberación de histamina (vasodilatador / aumento de permeabilidad vascular) y heparina en reacciones de hipersensibilidad inmediata y anafilaxia.",
+        pct: "0.5 - 1%"
+      },
+      linfocito: {
+        name: "Linfocito Pequeño",
+        type: "Agranulocito (Mononuclear)",
+        morph: "Diámetro 7-9 μm. Núcleo redondeado u oval, intensamente hipercromático, rodeado por un fino ribete perisférico de citoplasma azul claro.",
+        fn: "Pilar central de la inmunidad adaptativa: Linfocitos B (producción de anticuerpos solubles), Linfocitos T (inmunidad celular) y Células NK (citolisis tumoral/vírica).",
+        pct: "20 - 25%"
+      },
+      monocito: {
+        name: "Monocito",
+        type: "Agranulocito (Mononuclear)",
+        morph: "Célula más grande del frotis (12-20 μm). Núcleo grande arriñonado o escotado en herradura, citoplasma abundante gris-azulado en 'vidrio esmerilado'.",
+        fn: "Circula durante 1-3 días en sangre antes de migrar al tejido conectivo y diferenciarse en macrófagos tisulares o células dendríticas presentadoras de antígeno.",
+        pct: "3 - 8%"
+      }
+    };
+
+    function initMicroscopeCanvas() {
+      const canvas = document.getElementById('microscopeCanvas');
+      const setup = setupHiDPICanvas(canvas);
+      microCtx = setup.ctx;
+      generateRandomSmear();
+
+      canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const origW = parseFloat(canvas.dataset.origWidth) || 340;
+        const origH = parseFloat(canvas.dataset.origHeight) || 340;
+        const clickX = (e.clientX - rect.left) * (origW / rect.width);
+        const clickY = (e.clientY - rect.top) * (origH / rect.height);
+
+        // Buscar colisión con células leucocitarias
+        for (let cell of cellsInField) {
+          const dist = Math.hypot(cell.x - clickX, cell.y - clickY);
+          if (dist <= cell.radius + 6) {
+            selectMicroCell(cell.typeKey);
+            drawMicroscopeField(cell);
+            return;
+          }
+        }
+      });
+    }
+
+    function generateRandomSmear() {
+      if (!microCtx) return;
+      const w = microCtx.canvas.width;
+      const h = microCtx.canvas.height;
+      cellsInField = [];
+
+      // 1. Generar eritrocitos de fondo (anucleados con centro pálido)
+      const rbcCount = 80;
+      for (let i = 0; i < rbcCount; i++) {
+        cellsInField.push({
+          type: 'rbc',
+          x: Math.random() * (w - 40) + 20,
+          y: Math.random() * (h - 40) + 20,
+          radius: 9 + Math.random() * 2
+        });
+      }
+
+      // 2. Colocar leucocitos bien definidos
+      const leukoTypes = ['neutrofilo', 'neutrofilo', 'linfocito', 'monocito', 'eosinofilo', 'basofilo'];
+      for (let key of leukoTypes) {
+        cellsInField.push({
+          type: 'leuko',
+          typeKey: key,
+          x: Math.random() * (w - 80) + 40,
+          y: Math.random() * (h - 80) + 40,
+          radius: (key === 'monocito' ? 18 : (key === 'linfocito' ? 11 : 14))
+        });
+      }
+
+      drawMicroscopeField(null);
+    }
+
+    function drawMicroscopeField(highlightCell) {
+      const ctx = microCtx;
+      const w = ctx.canvas.width;
+      const h = ctx.canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      // Fondo tenue rosáceo de frotis
+      ctx.fillStyle = "#faf3f5";
+      ctx.fillRect(0, 0, w, h);
+
+      // Dibujar eritrocitos de fondo
+      for (let c of cellsInField) {
+        if (c.type === 'rbc') {
+          ctx.save();
+          // Halo exterior del glóbulo rojo
+          ctx.fillStyle = "rgba(239, 68, 68, 0.45)";
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Centro pálido característico del disco bicóncavo
+          ctx.fillStyle = "#faf3f5";
+          ctx.beginPath();
+          ctx.arc(c.x, c.y, c.radius * 0.45, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      // Dibujar leucocitos
+      for (let c of cellsInField) {
+        if (c.type === 'leuko') {
+          ctx.save();
+          
+          if (highlightCell && highlightCell === c) {
+            ctx.strokeStyle = "#8b5cf6";
+            ctx.lineWidth = 3;
+            ctx.setLineDash([4, 2]);
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.radius + 5, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+          }
+
+          if (c.typeKey === 'neutrofilo') {
+            // Citoplasma rosado pálido
+            ctx.fillStyle = "rgba(224, 200, 220, 0.8)";
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Núcleo trilobulado azul oscuro
+            ctx.fillStyle = "#3b0764";
+            for (let angle of [0, 2.1, 4.2]) {
+              ctx.beginPath();
+              ctx.arc(c.x + Math.cos(angle)*5, c.y + Math.sin(angle)*5, 4.2, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          } else if (c.typeKey === 'eosinofilo') {
+            // Citoplasma
+            ctx.fillStyle = "rgba(254, 215, 170, 0.8)";
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Gránulos naranja brillante
+            ctx.fillStyle = "#ea580c";
+            for (let i = 0; i < 16; i++) {
+              const gx = c.x + (Math.random() - 0.5) * c.radius * 1.5;
+              const gy = c.y + (Math.random() - 0.5) * c.radius * 1.5;
+              ctx.beginPath();
+              ctx.arc(gx, gy, 1.3, 0, Math.PI * 2);
+              ctx.fill();
+            }
+
+            // Núcleo bilobulado
+            ctx.fillStyle = "#431407";
+            ctx.beginPath();
+            ctx.arc(c.x - 4, c.y, 4.5, 0, Math.PI*2);
+            ctx.arc(c.x + 4, c.y, 4.5, 0, Math.PI*2);
+            ctx.fill();
+          } else if (c.typeKey === 'basofilo') {
+            // Citoplasma
+            ctx.fillStyle = "rgba(221, 214, 254, 0.7)";
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Gránulos oscuros densos
+            ctx.fillStyle = "#1e1b4b";
+            for (let i = 0; i < 24; i++) {
+              const gx = c.x + (Math.random() - 0.5) * c.radius * 1.5;
+              const gy = c.y + (Math.random() - 0.5) * c.radius * 1.5;
+              ctx.beginPath();
+              ctx.arc(gx, gy, 2, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          } else if (c.typeKey === 'linfocito') {
+            // Citoplasma azul tenue periférico
+            ctx.fillStyle = "rgba(186, 230, 253, 0.8)";
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Núcleo redondo denso central que ocupa casi toda la célula
+            ctx.fillStyle = "#1e1b4b";
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.radius * 0.85, 0, Math.PI * 2);
+            ctx.fill();
+          } else if (c.typeKey === 'monocito') {
+            // Gran célula con citoplasma gris azulado
+            ctx.fillStyle = "rgba(203, 213, 225, 0.85)";
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Núcleo arriñonado / hendido
+            ctx.fillStyle = "#312e81";
+            ctx.beginPath();
+            ctx.arc(c.x - 2, c.y - 2, 7, 0.4 * Math.PI, 1.8 * Math.PI);
+            ctx.fill();
+          }
+
+          ctx.restore();
+        }
+      }
+    }
+
+    function selectMicroCell(key) {
+      const data = cellDatabase[key];
+      if (!data) return;
+      document.getElementById('inspectCellName').innerText = data.name;
+      document.getElementById('inspectCellType').innerText = data.type;
+      document.getElementById('inspectCellMorph').innerText = data.morph;
+      document.getElementById('inspectCellFunction').innerText = data.fn;
+      document.getElementById('inspectCellPercentage').innerText = data.pct;
+    }
+
+    function setDifferentialPattern(pattern) {
+      const barNeu = document.getElementById('barNeu');
+      const barLin = document.getElementById('barLin');
+      const barMon = document.getElementById('barMon');
+      const barEos = document.getElementById('barEos');
+      const barBas = document.getElementById('barBas');
+
+      const valNeu = document.getElementById('valNeu');
+      const valLin = document.getElementById('valLin');
+      const valMon = document.getElementById('valMon');
+      const valEos = document.getElementById('valEos');
+      const valBas = document.getElementById('valBas');
+      const summary = document.getElementById('clinicalCaseSummary');
+
+      if (pattern === 'normal') {
+        barNeu.style.width = '65%'; valNeu.innerText = '65 % (Ref: 60-70%)';
+        barLin.style.width = '25%'; valLin.innerText = '25 % (Ref: 20-25%)';
+        barMon.style.width = '5%';  valMon.innerText = '5 % (Ref: 3-8%)';
+        barEos.style.width = '3%';  valEos.innerText = '3 % (Ref: 2-4%)';
+        barBas.style.width = '0.5%'; valBas.innerText = '0.5 % (Ref: 0.5-1%)';
+        summary.innerHTML = "<strong>Fórmula Fisiológica Normal:</strong> Relación madura armónica sin desviación celular reactiva.";
+      } else if (pattern === 'bacteriana') {
+        barNeu.style.width = '84%'; valNeu.innerText = '84 % (¡Neutrofilia Marcada!)';
+        barLin.style.width = '11%'; valLin.innerText = '11 % (Linfopenia Relativa)';
+        barMon.style.width = '3%';  valMon.innerText = '3 %';
+        barEos.style.width = '1%';  valEos.innerText = '1 %';
+        barBas.style.width = '1%';  valBas.innerText = '1 %';
+        summary.innerHTML = "<strong class='text-violet-800'>Infección Bacteriana Aguda (p. ej. Apendicitis, Neumonía):</strong> <em>Neutrofilia con desvío a la izquierda</em> (liberación medular de neutrófilos en cayado o banda para combatir la agresión piógena).";
+      } else if (pattern === 'viral') {
+        barNeu.style.width = '38%'; valNeu.innerText = '38 % (Neutropenia Relativa)';
+        barLin.style.width = '55%'; valLin.innerText = '55 % (¡Linfocitosis Reactiva!)';
+        barMon.style.width = '5%';  valMon.innerText = '5 %';
+        barEos.style.width = '1.5%';valEos.innerText = '1.5 %';
+        barBas.style.width = '0.5%';valBas.innerText = '0.5 %';
+        summary.innerHTML = "<strong class='text-blue-800'>Infección Viral Sistémica (p. ej. Mononucleosis, Gripe, Dengue):</strong> <em>Linfocitosis relativa y absoluta</em> debida a la expansión clonal de Linfocitos T citotóxicos y B activados.";
+      } else if (pattern === 'alergia') {
+        barNeu.style.width = '55%'; valNeu.innerText = '55 %';
+        barLin.style.width = '24%'; valLin.innerText = '24 %';
+        barMon.style.width = '5%';  valMon.innerText = '5 %';
+        barEos.style.width = '15%'; valEos.innerText = '15 % (¡Eosinofilia Patológica!)';
+        barBas.style.width = '1%';  valBas.innerText = '1 %';
+        summary.innerHTML = "<strong class='text-amber-800'>Parasitosis Helmíntica o Reacción Alérgica Severa (Asma):</strong> <em>Eosinofilia tisular/periférica</em> mediada por IgE e interleucina 5 (IL-5).";
+      }
+    }
+
+    // -------------------------------------------------------------
+    // MÓDULO 4: HEMATOPOYESIS Y MORFOLOGÍA PLAQUETARIA
+    // -------------------------------------------------------------
+    let plateletCtx = null;
+    let plateletIsActivated = false;
+
+    function initPlateletCanvas() {
+      const canvas = document.getElementById('plateletCanvas');
+      const setup = setupHiDPICanvas(canvas);
+      plateletCtx = setup.ctx;
+      drawPlatelet(false);
+    }
+
+    function setPlateletState(act) {
+      plateletIsActivated = act;
+      drawPlatelet(act);
+    }
+
+    function drawPlatelet(activated) {
+      if (!plateletCtx) return;
+      const ctx = plateletCtx;
+      const w = parseFloat(ctx.canvas.dataset.origWidth) || 220;
+      const h = parseFloat(ctx.canvas.dataset.origHeight) || 150;
+      ctx.clearRect(0, 0, w, h);
+
+      ctx.save();
+      ctx.translate(w / 2, h / 2);
+
+      if (!activated) {
+        // Discoide en reposo con bordes lisos
+        ctx.fillStyle = "#0891b2";
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 50, 24, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Gránulos alfa y densos dispersos
+        ctx.fillStyle = "#cffafe";
+        for (let i = 0; i < 14; i++) {
+          const gx = (Math.random() - 0.5) * 70;
+          const gy = (Math.random() - 0.5) * 25;
+          ctx.beginPath();
+          ctx.arc(gx, gy, 1.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      } else {
+        // Plaqueta activada con seudópodos irregulares puntiagudos
+        ctx.fillStyle = "#0e7490";
+        ctx.beginPath();
+        for (let i = 0; i < 12; i++) {
+          const angle = (i / 12) * Math.PI * 2;
+          const r = (i % 2 === 0) ? 60 : 25;
+          const x = Math.cos(angle) * r;
+          const y = Math.sin(angle) * r;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fill();
+
+        // Desgranulación central
+        ctx.fillStyle = "#a5f3fc";
+        for (let i = 0; i < 20; i++) {
+          const gx = (Math.random() - 0.5) * 40;
+          const gy = (Math.random() - 0.5) * 40;
+          ctx.beginPath();
+          ctx.arc(gx, gy, 2.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+    }
+
+    function selectLineage(type) {
+      const title = document.getElementById('lineageTitle');
+      const text = document.getElementById('lineageText');
+
+      if (type === 'hsc') {
+        title.innerText = "Célula Madre Hematopoyética Pluripotencial (HSC)";
+        text.innerText = "Reside en los nichos vasculares de la médula ósea roja. Posee dos propiedades cardinales: autorrenovación ilimitada (mitosis asimétrica para mantener el reservorio germinal) y pluripotencialidad ontogénica.";
+      } else if (type === 'cmp') {
+        title.innerText = "Progenitor Mieloide Común (CMP)";
+        text.innerText = "Compromete su destino para generar exclusivamente la serie roja (eritroide), la serie plaquetaria (megacariocítica), y los leucocitos fagocíticos (monocitos y granulocitos neutrófilos, eosinófilos y basófilos).";
+      } else if (type === 'clp') {
+        title.innerText = "Progenitor Linfoide Común (CLP)";
+        text.innerText = "Línea celular precursora de la inmunidad específica. Sus descendientes colonizan los órganos linfoides primarios (Médula ósea para maduración de Linfocitos B, y Timo para selección de Linfocitos T).";
+      } else if (type === 'platelets') {
+        title.innerText = "Trombopoyesis & Megacariocitos";
+        text.innerText = "Bajo control de la Trombopoyetina (TPO), el megacariocito gigante sufre endomitosis sucesivas acumulando hasta 64N cromosomas antes de extruir miles de plaquetas anucleadas (150.000-400.000/μL).";
+      } else if (type === 'erythro') {
+        title.innerText = "Eritropoyesis Medular";
+        text.innerText = "Proeritroblasto -> Eritroblasto basófilo -> Policromatófilo -> Ortocromático (expulsa el núcleo) -> Reticulocito (conserva ribosomas) -> Eritrocito maduro discoide bicóncavo.";
+      } else {
+        title.innerText = "Línea Celular Mieloide / Granulopoyesis";
+        text.innerText = "Diferenciación regulada por citoquinas mieloides (G-CSF, GM-CSF) donde las células adquieren sucesivamente gránulos azurófilos inespecíficos y posteriormente gránulos secundarios característicos de cada estirpe.";
+      }
+    }
+
+    // -------------------------------------------------------------
+    // MÓDULO 5: HEMOSTASIA EN 4 FASES & CANVAS DE FLUJO VASCULAR
+    // -------------------------------------------------------------
+    let hemoCtx = null;
+    let hemoPhase = 1;
+    let hemoAnimationActive = true;
+    let bloodParticles = [];
+
+    const hemoPhaseContent = {
+      1: {
+        title: "Fase 1: Vasoespasmo Reflejo / Espasmo Vascular Miogénico",
+        desc: "Ante la sección traumática del vaso, el músculo liso arteriolar experimenta una intensa vasoconstricción local inmediata. Está mediada por reflejos axónicos nociceptivos locales, respuesta miogénica directa del músculo lesionado y liberación endotelial de endotelina-1 y tromboxano A2 (TXA2). Su función fisiológica primaria es reducir el flujo laminar local y limitar el volumen de sangre extravasada."
+      },
+      2: {
+        title: "Fase 2: Hemostasia Primaria (Formación del Tapón Plaquetario)",
+        desc: "La disrupción endotelial expone fibras de colágeno subendotelial y Factor de von Willebrand (vWF). Las plaquetas circulantes se adhieren mediante receptores GpIb, se activan cambiando de forma discoide a ameboide con seudópodos, y secretan sus gránulos citoplasmáticos con ADP, tromboxano A2 y serotonina. Estas sustancias reclutan más plaquetas circulantes, las cuales se agregan a través de puentes de fibrinógeno unidos al receptor GpIIb/IIIa formando el 'tapón hemostático temporal o blanco'."
+      },
+      3: {
+        title: "Fase 3: Hemostasia Secundaria (Coagulación Enzimática Sanguínea)",
+        desc: "Consolidación química definitiva. La activación combinada de la vía extrínseca (iniciada por Factor Tisular expuesto) y la vía intrínseca (activación por contacto sobre superficies extrañas) converge en el Factor Xa. Este factor, junto al Ca2+ y fosfolípidos plaquetarios, activa la Protrombina a Trombina, enzima catalítica que corta el fibrinógeno soluble transformándolo en monómeros de fibrina. Los polímeros de fibrina se entrecruzan covalentemente gracias al Factor XIIIa, formando una red tridimensional insoluble que atrapa hematíes y sella mecánicamente la brecha."
+      },
+      4: {
+        title: "Fase 4: Retracción del Coágulo y Fibrinólisis",
+        desc: "Las plaquetas adheridas al entramado de fibrina extienden sus filamentos de actina y miosina contráctiles (trombostenina), exprimiendo el suero (plasma sin fibrinógeno) y uniendo los bordes lesionados de la herida. Posteriormente, tras la reepitelización endotelial guiada por PDGF, las células sanas liberan activador tisular del plasminógeno (t-PA), que convierte el plasminógeno atrapado en Plasmina, enzima proteolítica que disuelve de forma regulada la malla de fibrina liberando dímeros D."
+      }
+    };
+
+    function initHemostasisCanvas() {
+      const canvas = document.getElementById('hemostasisCanvas');
+      const setup = setupHiDPICanvas(canvas);
+      hemoCtx = setup.ctx;
+
+      bloodParticles = [];
+      const logicalW = setup.width || 760;
+      const logicalH = setup.height || 260;
+
+      // Crear partículas iniciales de sangre con propiedades hidrodinámicas
+      for (let i = 0; i < 65; i++) {
+        const isRBC = Math.random() > 0.18;
+        bloodParticles.push({
+          x: Math.random() * logicalW,
+          y: 75 + Math.random() * 105,
+          vx: isRBC ? (2.8 + Math.random() * 1.8) : (3.2 + Math.random() * 2.2),
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: isRBC ? (7 + Math.random() * 2) : (3.5 + Math.random() * 1.5),
+          angle: Math.random() * Math.PI * 2,
+          vAngle: (Math.random() - 0.5) * 0.05,
+          aspect: isRBC ? 0.55 : 0.85,
+          type: isRBC ? 'rbc' : 'platelet',
+          extravasated: false,
+          color: isRBC ? '#dc2626' : '#38bdf8'
+        });
+      }
+
+      // Iniciar bucle de renderizado interactivo
+      animateHemostasis();
+    }
+
+    function setHemostasisPhase(phase) {
+      hemoPhase = phase;
+
+      // Actualizar botones de fases
+      for (let p = 1; p <= 4; p++) {
+        const btn = document.getElementById(`phaseBtn-${p}`);
+        if (btn) {
+          if (p === phase) {
+            btn.className = "phase-btn px-3.5 py-1.5 rounded-lg text-xs font-bold transition bg-accent text-white shadow-sm ring-2 ring-accent/30";
+          } else {
+            btn.className = "phase-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold transition bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200";
+          }
+        }
+      }
+
+      // Actualizar textos didácticos de la fase
+      const data = hemoPhaseContent[phase];
+      const panel = document.getElementById('hemostasisExplanationPanel');
+      if (panel && data) {
+        panel.innerHTML = `
+          <strong class="text-base text-slate-900 font-bold block flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-accent"></span> ${data.title}
+          </strong>
+          <p class="leading-relaxed text-slate-600 mt-1.5 text-xs sm:text-sm">${data.desc}</p>
+        `;
+      }
+
+      const ind = document.getElementById('canvasPhaseIndicator');
+      if (ind && data) {
+        const cleanTitle = data.title.includes(':') ? data.title.split(':')[1].trim() : data.title;
+        ind.innerHTML = `<span class="w-2.5 h-2.5 rounded-full inline-block bg-accent animate-pulse"></span> Fase ${phase}: ${cleanTitle}`;
+      }
+
+      if (window.renderMathInElement && panel) {
+        renderMathInElement(panel, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function toggleHemostasisAnimation() {
+      hemoAnimationActive = !hemoAnimationActive;
+      const btn = document.getElementById('playPauseBtn');
+      if (btn) {
+        if (hemoAnimationActive) {
+          btn.innerHTML = `<i class="fa-solid fa-pause w-3.5 h-3.5"></i> Pausar Flujo`;
+        } else {
+          btn.innerHTML = `<i class="fa-solid fa-play w-3.5 h-3.5"></i> Reanudar Flujo`;
+        }
+      }
+    }
+
+    let hemoTime = 0;
+
+    function animateHemostasis() {
+      requestAnimationFrame(animateHemostasis);
+      if (!hemoCtx) return;
+      const ctx = hemoCtx;
+      const w = parseFloat(ctx.canvas.dataset.origWidth) || 760;
+      const h = parseFloat(ctx.canvas.dataset.origHeight) || 260;
+      hemoTime += 0.03;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Fondo de la cavidad tisular externa
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, h);
+      bgGrad.addColorStop(0, '#0f172a');
+      bgGrad.addColorStop(0.5, '#020617');
+      bgGrad.addColorStop(1, '#0f172a');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // Dinámica de Vasoespasmo Reflejo (estrechamiento local en la zona media en Fase 1)
+      const isSpasm = (hemoPhase === 1);
+      const normalLumenHalf = 65;
+      const spasmLumenHalf = 38;
+      const centerY = h / 2 - 2;
+
+      // Calcular contorno de pared superior e inferior a lo largo del vaso
+      const wallSegments = 60;
+      const topPts = [];
+      const bottomPts = [];
+
+      for (let i = 0; i <= wallSegments; i++) {
+        const x = (i / wallSegments) * w;
+        // Distancia normalizada al centro de la lesión (x=0.5*w)
+        const distFromCenter = Math.abs(x - w * 0.5) / (w * 0.35);
+        const constrictionFactor = Math.max(0, 1 - Math.min(1, distFromCenter));
+        
+        let lumenH = normalLumenHalf;
+        if (isSpasm) {
+          // Espasmo vascular miogénico profundo en el área de ruptura
+          lumenH = normalLumenHalf - (normalLumenHalf - spasmLumenHalf) * Math.sin(constrictionFactor * Math.PI * 0.5);
+        } else if (hemoPhase === 2) {
+          lumenH = normalLumenHalf - 12 * constrictionFactor;
+        }
+
+        topPts.push({ x, y: centerY - lumenH });
+        bottomPts.push({ x, y: centerY + lumenH });
+      }
+
+      // Zona de brecha de lesión vascular en la pared inferior (x entre 40% y 60%)
+      const breachLeftX = w * 0.41;
+      const breachRightX = w * 0.59;
+      const breachY = centerY + (isSpasm ? spasmLumenHalf : normalLumenHalf);
+
+      // 1. Dibujar Túnica Media (Músculo Liso Vascular) - franjas musculares
+      // Capa muscular superior
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(w, 0);
+      for (let i = wallSegments; i >= 0; i--) {
+        ctx.lineTo(topPts[i].x, topPts[i].y - 8);
+      }
+      ctx.closePath();
+      ctx.fill();
+
+      // Estrías musculares vasculares superiores
+      ctx.strokeStyle = 'rgba(71, 85, 105, 0.4)';
+      ctx.lineWidth = 1.5;
+      for (let x = 15; x < w; x += 18) {
+        ctx.beginPath();
+        ctx.moveTo(x, 4);
+        ctx.lineTo(x - 6, centerY - normalLumenHalf - 12);
+        ctx.stroke();
+      }
+
+      // Capa muscular inferior (interrumpida en la brecha lesionada)
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      ctx.lineTo(breachLeftX, h);
+      ctx.lineTo(breachLeftX, breachY + 8);
+      for (let i = Math.floor(wallSegments * 0.41); i >= 0; i--) {
+        ctx.lineTo(bottomPts[i].x, bottomPts[i].y + 8);
+      }
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(breachRightX, h);
+      ctx.lineTo(w, h);
+      for (let i = wallSegments; i >= Math.floor(wallSegments * 0.59); i--) {
+        ctx.lineTo(bottomPts[i].x, bottomPts[i].y + 8);
+      }
+      ctx.lineTo(breachRightX, breachY + 8);
+      ctx.closePath();
+      ctx.fill();
+
+      // Tejido extravascular lesionado (área de hemorragia / colágeno expuesto)
+      const extravascularGrad = ctx.createLinearGradient(w * 0.5, breachY, w * 0.5, h);
+      extravascularGrad.addColorStop(0, 'rgba(180, 83, 9, 0.35)');
+      extravascularGrad.addColorStop(0.5, (hemoPhase === 1 ? 'rgba(220, 38, 38, 0.45)' : 'rgba(30, 41, 59, 0.5)'));
+      extravascularGrad.addColorStop(1, 'rgba(15, 23, 42, 0.9)');
+      ctx.fillStyle = extravascularGrad;
+      ctx.fillRect(breachLeftX - 10, breachY, (breachRightX - breachLeftX) + 20, h - breachY);
+
+      // Fibras de colágeno subendotelial expuestas en la brecha
+      ctx.strokeStyle = '#f59e0b';
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 9; i++) {
+        const fx = breachLeftX + 10 + i * ((breachRightX - breachLeftX - 20) / 8);
+        ctx.beginPath();
+        ctx.moveTo(fx, breachY + 4);
+        ctx.lineTo(fx + Math.sin(hemoTime + i) * 3, breachY + 16);
+        ctx.stroke();
+      }
+
+      // Luz del Vaso (Plasma sanguíneo líquido circulante)
+      const lumenGrad = ctx.createLinearGradient(0, centerY - normalLumenHalf, 0, centerY + normalLumenHalf);
+      lumenGrad.addColorStop(0, 'rgba(120, 15, 15, 0.55)');
+      lumenGrad.addColorStop(0.5, 'rgba(60, 10, 10, 0.3)');
+      lumenGrad.addColorStop(1, 'rgba(120, 15, 15, 0.55)');
+
+      ctx.fillStyle = lumenGrad;
+      ctx.beginPath();
+      ctx.moveTo(topPts[0].x, topPts[0].y);
+      for (let i = 1; i <= wallSegments; i++) ctx.lineTo(topPts[i].x, topPts[i].y);
+      for (let i = wallSegments; i >= 0; i--) ctx.lineTo(bottomPts[i].x, bottomPts[i].y);
+      ctx.closePath();
+      ctx.fill();
+
+      // Endotelio Vascular (Monocapa de células endoteliales continuas con núcleos)
+      function drawEndothelialLayer(pts, isBottom) {
+        for (let i = 0; i < wallSegments; i++) {
+          const p1 = pts[i];
+          const p2 = pts[i + 1];
+          // Omitir en la brecha inferior si no está reepitelizado
+          if (isBottom && p1.x >= breachLeftX && p2.x <= breachRightX) {
+            if (hemoPhase < 4) continue; // No hay endotelio hasta la lisis y cicatrización
+          }
+          ctx.strokeStyle = (isBottom && hemoPhase === 4 && p1.x >= breachLeftX && p2.x <= breachRightX) ? '#86efac' : '#fda4af';
+          ctx.lineWidth = 3.5;
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+
+          // Núcleos endoteliales cada 3 segmentos
+          if (i % 3 === 0) {
+            ctx.fillStyle = '#fb7185';
+            ctx.beginPath();
+            ctx.ellipse((p1.x + p2.x) / 2, (p1.y + p2.y) / 2 + (isBottom ? 2.5 : -2.5), 5.5, 2.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      }
+
+      drawEndothelialLayer(topPts, false);
+      drawEndothelialLayer(bottomPts, true);
+
+      // Etiquetas informativas flotantes en el vaso
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.font = '10px Outfit, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('Músculo Liso Vascular', 14, 20);
+      ctx.fillText('Flujo Sanguíneo Laminar ➔', 14, centerY - 6);
+      ctx.textAlign = 'center';
+      if (hemoPhase < 4) {
+        ctx.fillStyle = '#fde047';
+        ctx.fillText('Colágeno Subendotelial Expuesto (Lesión Vascular)', w * 0.5, breachY + 34);
+      } else {
+        ctx.fillStyle = '#86efac';
+        ctx.fillText('Endotelio Reepitelizado y Fibrinólisis Completa', w * 0.5, breachY + 28);
+      }
+
+      // Animación y Física de las Partículas Sanguíneas
+      const flowSpeedMult = (hemoPhase === 1 ? 0.35 : 1.0); // La vasoconstricción reduce el caudal de pérdida
+      const breachMidX = (breachLeftX + breachRightX) / 2;
+
+      for (let p of bloodParticles) {
+        if (hemoAnimationActive) {
+          p.x += p.vx * flowSpeedMult;
+          p.angle += p.vAngle;
+
+          // Si una partícula está en la zona de la brecha
+          if (p.x >= breachLeftX - 10 && p.x <= breachRightX + 10) {
+            // Fase 1: Extravasación hemorrágica activa (pérdida de sangre hacia el exterior)
+            if (hemoPhase === 1) {
+              if (p.y > centerY + 15) {
+                p.y += 2.2; // Sale del vaso
+                p.extravasated = true;
+              }
+            } else if (hemoPhase >= 2 && p.extravasated) {
+              p.extravasated = false;
+            }
+          }
+
+          // Mantener partículas dentro de la luz arterial si no se han extravasado
+          const curIndex = Math.min(wallSegments, Math.max(0, Math.floor((p.x / w) * wallSegments)));
+          const curTopY = topPts[curIndex].y + p.radius + 2;
+          const curBottomY = bottomPts[curIndex].y - p.radius - 2;
+
+          if (!p.extravasated) {
+            if (p.y < curTopY) p.y = curTopY + 1;
+            if (p.y > curBottomY) {
+              if (p.x < breachLeftX || p.x > breachRightX || hemoPhase >= 3) {
+                p.y = curBottomY - 1;
+              }
+            }
+          }
+
+          // Reincorporar partículas que salen por el extremo derecho o por el fondo extravascular
+          if (p.x > w + 20 || p.y > h + 15) {
+            p.x = -15;
+            p.y = centerY + (Math.random() - 0.5) * (normalLumenHalf * 1.3);
+            p.extravasated = false;
+          }
+        }
+
+        // Renderizado anatómico de Eritrocitos (Discos bicóncavos con relieve elíptico)
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+
+        if (p.type === 'rbc') {
+          // Borde celular
+          ctx.fillStyle = p.extravasated ? '#991b1b' : '#dc2626';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.radius, p.radius * p.aspect, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Depresión bicóncava central
+          ctx.fillStyle = p.extravasated ? '#7f1d1d' : '#991b1b';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.radius * 0.45, p.radius * p.aspect * 0.45, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Brillo de membrana
+          ctx.strokeStyle = 'rgba(254, 202, 202, 0.4)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        } else {
+          // Plaqueta circulante (pequeño trombocito lenticular celeste)
+          ctx.fillStyle = '#38bdf8';
+          ctx.beginPath();
+          ctx.ellipse(0, 0, p.radius, p.radius * 0.7, 0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+      }
+
+      // =========================================================================
+      // FORMACIÓN ESTRUCTURADA DEL COÁGULO Y REPARACIÓN SEGÚN FASE
+      // =========================================================================
+
+      // FASE 2: TAPÓN PLAQUETARIO PRIMARIO (Adhesión al colágeno + pseudópodos)
+      if (hemoPhase === 2) {
+        // Red de plaquetas activadas agregadas con pseudópodos
+        for (let i = 0; i < 36; i++) {
+          const col = i % 9;
+          const row = Math.floor(i / 9);
+          const px = breachLeftX + 12 + col * ((breachRightX - breachLeftX - 24) / 8) + (row % 2) * 5;
+          const py = breachY - 6 + row * 6.5;
+
+          // Pseudópodos estrellados de plaqueta activada
+          ctx.strokeStyle = '#06b6d4';
+          ctx.lineWidth = 1.2;
+          for (let a = 0; a < 5; a++) {
+            const rad = (a / 5) * Math.PI * 2 + (i * 0.3);
+            ctx.beginPath();
+            ctx.moveTo(px, py);
+            ctx.lineTo(px + Math.cos(rad) * 7.5, py + Math.sin(rad) * 6);
+            ctx.stroke();
+          }
+
+          // Cuerpo de la plaqueta agregada
+          ctx.fillStyle = '#22d3ee';
+          ctx.beginPath();
+          ctx.arc(px, py, 3.8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Cartel flotante indicativo
+        ctx.fillStyle = 'rgba(6, 182, 212, 0.9)';
+        ctx.font = 'bold 11px Outfit, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Tapón Plaquetario Primario (Hemostasia Primaria)', breachMidX, breachY - 26);
+      }
+
+      // FASE 3: COAGULACIÓN SECUNDARIA (Malla de Fibrina + Eritrocitos Atrapados)
+      if (hemoPhase === 3) {
+        // 1. Hematíes atrapados en la malla de fibrina (trombo rojo consolidado)
+        for (let i = 0; i < 32; i++) {
+          const col = i % 8;
+          const row = Math.floor(i / 8);
+          const rx = breachLeftX + 10 + col * ((breachRightX - breachLeftX - 20) / 7) + (row % 2) * 6;
+          const ry = breachY - 10 + row * 6.8;
+
+          ctx.fillStyle = '#991b1b';
+          ctx.beginPath();
+          ctx.ellipse(rx, ry, 5.5, 4, (i * 0.4), 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = '#7f1d1d';
+          ctx.beginPath();
+          ctx.ellipse(rx, ry, 2.5, 1.8, (i * 0.4), 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // 2. Plaquetas embebidas en el coágulo
+        for (let i = 0; i < 18; i++) {
+          const px = breachLeftX + 14 + (i * 8.5) % (breachRightX - breachLeftX - 28);
+          const py = breachY - 8 + (i * 4.2) % 22;
+          ctx.fillStyle = '#22d3ee';
+          ctx.beginPath();
+          ctx.arc(px, py, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // 3. Malla polimérica de Fibrina insoluble (red densa brillante entrelazada)
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1.8;
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+        ctx.shadowBlur = 6;
+
+        for (let j = 0; j < 14; j++) {
+          const x1 = breachLeftX + 6 + j * 9;
+          const y1 = breachY - 14 + (j % 3) * 3;
+          const x2 = breachLeftX + 22 + j * 7.5;
+          const y2 = breachY + 12 - (j % 2) * 4;
+
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.stroke();
+
+          // Hilos cruzados estabilizados por Factor XIIIa
+          ctx.beginPath();
+          ctx.moveTo(x1 + 6, y2);
+          ctx.lineTo(x2 - 6, y1);
+          ctx.stroke();
+        }
+        ctx.shadowBlur = 0; // Reset sombra
+
+        ctx.fillStyle = '#f87171';
+        ctx.font = 'bold 11px Outfit, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Coágulo de Fibrina Consolidado (Hemostasia Secundaria - Fibrinógeno ➔ Fibrina)', breachMidX, breachY - 26);
+      }
+
+      // FASE 4: RETRACCIÓN DEL COÁGULO Y FIBRINÓLISIS ENZIMÁTICA POR PLASMINA
+      if (hemoPhase === 4) {
+        // Coágulo retraído y condensado de tamaño reducido
+        for (let i = 0; i < 16; i++) {
+          const rx = breachLeftX + 28 + (i % 6) * 12;
+          const ry = breachY - 4 + Math.floor(i / 6) * 5;
+
+          ctx.fillStyle = 'rgba(153, 27, 27, 0.4)';
+          ctx.beginPath();
+          ctx.arc(rx, ry, 3.5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Fibras de fibrina en disolución por plasmina (líneas semitransparentes punteadas)
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+        ctx.lineWidth = 1.5;
+        for (let j = 0; j < 8; j++) {
+          ctx.beginPath();
+          ctx.moveTo(breachLeftX + 28 + j * 10, breachY - 8);
+          ctx.lineTo(breachLeftX + 38 + j * 9, breachY + 8);
+          ctx.stroke();
+        }
+        ctx.setLineDash([]); // Reset dash
+
+        // Enzimas de Plasmina (esferas verdes activas que degradan la fibrina en PDF)
+        ctx.fillStyle = '#4ade80';
+        for (let k = 0; k < 6; k++) {
+          const ex = breachLeftX + 26 + k * 14 + Math.sin(hemoTime * 2 + k) * 4;
+          const ey = breachY - 10 + (k % 3) * 6;
+          ctx.beginPath();
+          ctx.arc(ex, ey, 4.2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = '#166534';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Cicatrización endotelial completa por encima de la brecha
+        ctx.strokeStyle = '#4ade80';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(breachLeftX - 6, breachY);
+        ctx.lineTo(breachRightX + 6, breachY);
+        ctx.stroke();
+
+        ctx.fillStyle = '#4ade80';
+        ctx.font = 'bold 11px Outfit, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Fibrinólisis por Plasmina • Retracción del Coágulo • Endotelio Restituido', breachMidX, breachY - 26);
+      }
+    }
+  
+    </script>
+</body>
+</html>
